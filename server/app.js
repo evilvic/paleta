@@ -13,7 +13,11 @@ const session = require('express-session')
 const passport = require('./config/passport')
 
 mongoose
-  .connect('mongodb://localhost/server', {useNewUrlParser: true, useUnifiedTopology: true})
+  .connect('mongodb://localhost/server', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  })
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -73,9 +77,9 @@ app.locals.title = 'Express - Generated with IronGenerator';
 
 
 const index = require('./routes/index')
-//const auth = require('./routes/auth')
+const auth = require('./routes/auth')
 app.use('/', index)
-//app.use('/', auth)
+app.use('/auth', auth)
 
 
 module.exports = app;
