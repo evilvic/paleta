@@ -11,7 +11,7 @@ const Login = () => (
                     placeholder='username'
                     name='username'
                     type='text'
-                    value={ context.state.formLogin.name }
+                    value={ context.state.formLogin.username }
                     onChange={ context.handleLoginInput }
                 />
                 <label>Password</label>

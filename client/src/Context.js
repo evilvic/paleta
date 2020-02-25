@@ -15,7 +15,8 @@ class MyProvider extends Component {
         formLogin: {
             username: '',
             password: ''
-        }
+        },
+        isLoggedIn: false
     }
 
     handleSignupInput = e => {
@@ -54,10 +55,11 @@ class MyProvider extends Component {
 
     handleLoginInput = e => {
         const { name, value } = e.target
+        console.log(this.state)
         this.setState(prevState => ({
             ...prevState,
             formLogin: {
-                ...prevState.formSignup,
+                ...prevState.formLogin,
                 [name]: value
             }
         }))
@@ -66,6 +68,25 @@ class MyProvider extends Component {
     handleLoginSubmit = e => {
 
         e.preventDefault()
+        const { username, password } = this.state.formLogin
+        console.log(username, password)
+        AUTH_SERVICE.login({ username, password })
+            .then(({ data }) => {
+                this.setState(prevState => ({
+                    ...prevState,
+                    formLogin: {
+                        username: '',
+                        password: ''
+                    },
+                    loggedUser: data.user,
+                    isLoggedIn: true
+                }))
+                this.props.history.push('/profile')
+            })
+            .catch(() => {
+                console.log('Somethinmg went wrong...')
+            })
+
     }
 
     render() {

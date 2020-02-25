@@ -11,7 +11,7 @@ const Signup = () => (
                     placeholder='username'
                     name='username'
                     type='text'
-                    value={ context.state.formSignup.name }
+                    value={ context.state.formSignup.username }
                     onChange={ context.handleSignupInput }
                 />
                 <label>Email</label>
