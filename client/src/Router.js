@@ -2,11 +2,11 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
+import Profile from './pages/Profile'
 import Playground from './pages/Playground'
 
 const NavBar = () => <h1>NavBar</h1>
 const Home = () => <h1>Home</h1>
-const Profile = () => <h1>Profile</h1>
 
 const Router = () => (
     <>

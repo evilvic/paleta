@@ -16,7 +16,8 @@ class MyProvider extends Component {
             username: '',
             password: ''
         },
-        isLoggedIn: false
+        isLoggedIn: false,
+        loggedUser: null
     }
 
     handleSignupInput = e => {
@@ -55,7 +56,6 @@ class MyProvider extends Component {
 
     handleLoginInput = e => {
         const { name, value } = e.target
-        console.log(this.state)
         this.setState(prevState => ({
             ...prevState,
             formLogin: {
@@ -69,7 +69,6 @@ class MyProvider extends Component {
 
         e.preventDefault()
         const { username, password } = this.state.formLogin
-        console.log(username, password)
         AUTH_SERVICE.login({ username, password })
             .then(({ data }) => {
                 this.setState(prevState => ({
@@ -82,6 +81,7 @@ class MyProvider extends Component {
                     isLoggedIn: true
                 }))
                 this.props.history.push('/profile')
+                console.log(this.state)
             })
             .catch(() => {
                 console.log('Somethinmg went wrong...')
