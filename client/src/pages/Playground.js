@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
+import { Container, CodeEditor, Canvas } from '../style/components'
+
 
 class Playground extends Component {
 
-    state = {
-        input1: '',
-        input2: ''
-    }
+    state = {}
 
     handleInput = e => {
         const { name, value } = e.target
@@ -48,29 +47,24 @@ class Playground extends Component {
 
     render() {
         return (
-            <>
-                <section>
-                    <input 
-                        name='input1'
-                        value={this.state.input}
-                        onChange={this.handleInput}
-                        onKeyUp={this.draw}
-                    />
-                    <input 
-                        name='input2'
-                        value={this.state.input}
-                        onChange={this.handleInput}
-                        onKeyUp={this.draw}
-                    />
-                    <input 
-                        name='input3'
-                        value={this.state.input}
-                        onChange={this.handleInput}
-                        onKeyUp={this.draw}
-                    />
-                </section>
-                <canvas ref='canvas' width={500} height={500} style={ {border: 'solid 1px purple'} }/>
-            </>
+            <Container>
+                <CodeEditor>
+                    {Array.from(Array(50), (input, idx) => {
+                        return (
+                            <div key={idx}>
+                                <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
+                                <input 
+                                    name={`input${idx}`}
+                                    value={this.state.input}
+                                    onChange={this.handleInput}
+                                    onKeyUp={this.draw}
+                                />
+                            </div>
+                        )
+                    })}
+                </CodeEditor>
+                <Canvas ref='canvas' width={500} height={500} />
+            </Container>
         )
     }
 }
