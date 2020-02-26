@@ -4,7 +4,13 @@ import { Container, CodeEditor, Canvas } from '../style/components'
 
 class Playground extends Component {
 
-    state = {}
+    state = {
+        input0: '', input1: '', input2: '', input3: '', input4: '', input5: '', input6: '', input7: '', input8: '', input9: '',
+        input10: '', input11: '', input12: '', input13: '', input14: '', input15: '', input16: '', input17: '', input18: '', input19: '',
+        input20: '', input21: '', input22: '', input23: '', input24: '', input25: '', input26: '', input27: '', input28: '', input29: '',
+        input30: '', input31: '', input32: '', input33: '', input34: '', input35: '', input36: '', input37: '', input38: '', input39: '',
+        input40: '', input41: '', input42: '', input43: '', input44: '', input45: '', input46: '', input47: '', input48: '', input49: ''
+    }
 
     handleInput = e => {
         const { name, value } = e.target
@@ -23,21 +29,176 @@ class Playground extends Component {
             commands.push(this.state[value])
         }
 
-        commands.forEach(com => {
+        commands.forEach((com, idx) => {
 
             const command = com.split(' ')
+
+            let color = 'black'
+            let x
+            let y
     
             switch (command[0]) {
+                case 'background':
+                    ctx.fillStyle = command[1] || color
+                    ctx.fillRect(0, 0, 500, 500)
+                    ctx.fillStyle = color
+                    break
+                case 'color':
+                    ctx.fillStyle = command[1]
+                    break
                 case 'circle':
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'move') {
+                            x = commands[i].split(' ')[1]
+                            y = commands[i].split(' ')[2]
+                            i = 0
+                        } else {
+                            x = 250
+                            y = 250
+                        }
+                    }
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'color') {
+                            color = commands[i].split(' ')[1]
+                            i = 0
+                        } else {
+                            color = 'black'
+                        }
+                    }
+                    ctx.fillStyle = color
                     ctx.beginPath()
-                    ctx.arc(250, 250, command[1], 0, 2 * Math.PI)
+                    ctx.arc(x, y, command[1], 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    break
+                case 'ellipse':
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'move') {
+                            x = commands[i].split(' ')[1]
+                            y = commands[i].split(' ')[2]
+                            i = 0
+                        } else {
+                            x = 250
+                            y = 250
+                        }
+                    }
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'color') {
+                            color = commands[i].split(' ')[1]
+                            i = 0
+                        } else {
+                            color = 'black'
+                        }
+                    }
+                    ctx.fillStyle = color
+                    ctx.beginPath()
+                    ctx.ellipse(x, y, command[1], command[2], 0, 0, 2 * Math.PI)
+                    ctx.fill()
                     ctx.stroke()
                     break
                 case 'square':
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'move') {
+                            x = commands[i].split(' ')[1]
+                            y = commands[i].split(' ')[2]
+                            i = 0
+                        } else {
+                            x = 250
+                            y = 250
+                        }
+                    }
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'color') {
+                            color = commands[i].split(' ')[1]
+                            i = 0
+                        } else {
+                            color = 'black'
+                        }
+                    }
+                    ctx.fillStyle = color
                     ctx.beginPath()
-                    ctx.strokeRect(250, 250, command[1], command[1])
+                    ctx.fillRect(x, y, command[1], command[1])
+                    ctx.rect(x, y, command[1], command[1])
+                    ctx.fill()
                     ctx.stroke()
                     break
+                case 'rectangle':
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'move') {
+                            x = commands[i].split(' ')[1]
+                            y = commands[i].split(' ')[2]
+                            i = 0
+                        } else {
+                            x = 250
+                            y = 250
+                        }
+                    }
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'color') {
+                            color = commands[i].split(' ')[1]
+                            i = 0
+                        } else {
+                            color = 'black'
+                        }
+                    }
+                    ctx.fillStyle = color
+                    ctx.beginPath()
+                    ctx.fillRect(x, y, command[1], command[2])
+                    ctx.rect(x, y, command[1], command[2])
+                    ctx.fill()
+                    ctx.stroke()
+                    break
+                case 'arc':
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'move') {
+                            x = commands[i].split(' ')[1]
+                            y = commands[i].split(' ')[2]
+                            i = 0
+                        } else {
+                            x = 250
+                            y = 250
+                        }
+                    }
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'color') {
+                            color = commands[i].split(' ')[1]
+                            i = 0
+                        } else {
+                            color = 'black'
+                        }
+                    }
+                    ctx.fillStyle = color
+                    ctx.beginPath()
+                    ctx.arc(x, y, command[1], command[2] * Math.PI, command[3] * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    break
+                case 'font':
+                    ctx.font = `${command[2]}px ${command[1]}`
+                    break
+                case 'text':
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'move') {
+                            x = commands[i].split(' ')[1]
+                            y = commands[i].split(' ')[2]
+                            i = 0
+                        } else {
+                            x = 250
+                            y = 250
+                        }
+                    }
+                    for (let i = idx; i >= 0; i--) {
+                        if (commands[i].split(' ')[0] === 'color') {
+                            color = commands[i].split(' ')[1]
+                            i = 0
+                        } else {
+                            color = 'black'
+                        }
+                    }
+                    ctx.fillStyle = color
+                    ctx.fillText(( `${command[1] || ''} ${command[2] || ''} ${command[3] || ''} ${command[4] || ''} ${command[5] || ''}`), x, y)
+                    break
+                
             }
         })
 
