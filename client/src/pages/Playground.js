@@ -204,6 +204,13 @@ class Playground extends Component {
 
     }
 
+    save = e => {
+        e.preventDefault()
+        const canvas = this.refs.canvas
+        const image = canvas.toDataURL("image/png")
+        
+    }
+
     componentDidMount() {}
 
     render() {
@@ -224,7 +231,9 @@ class Playground extends Component {
                         )
                     })}
                 </CodeEditor>
+                <button onClick={this.save}>SAVE</button>
                 <Canvas ref='canvas' width={500} height={500} />
+                
             </Container>
         )
     }
