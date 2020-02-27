@@ -11,7 +11,7 @@ const Login = () => (
                     <h2>Login</h2>
                     <label>Username</label>
                     <input
-                        placeholder='username'
+                        placeholder='evilvic'
                         name='username'
                         type='text'
                         value={ context.state.formLogin.username }
@@ -19,7 +19,7 @@ const Login = () => (
                     />
                     <label>Password</label>
                     <input
-                        placeholder='Password'
+                        placeholder='●●●●●●●'
                         name='password'
                         type='password'
                         value={ context.state.formLogin.password }

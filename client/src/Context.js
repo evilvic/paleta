@@ -103,7 +103,7 @@ class MyProvider extends Component {
             isLoggedIn: false,
             loggedUser: null
         })
-        
+        this.props.history.push('/')
     }
 
     render() {

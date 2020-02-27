@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, CodeEditor, Canvas } from '../style/components'
+import { Container, CodeEditor, Canvas, Title, Menu } from '../style/components'
 import AUTH_SERVICE from '../services/auth'
 import PROJECTS_SERVICE from '../services/project'
 
@@ -262,23 +262,31 @@ class Playground extends Component {
     render() {
         return (
             <Container>
-                <CodeEditor>
-                    {Array.from(Array(50), (input, idx) => {
-                        return (
-                            <div key={idx}>
-                                <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
-                                <input 
-                                    name={`input${idx}`}
-                                    value={this.state.input}
-                                    onChange={this.handleInput}
-                                    onKeyUp={this.draw}
-                                />
-                            </div>
-                        )
-                    })}
-                </CodeEditor>
-                {this.state.loggedUser && <button onClick={this.save}>SAVE</button>}
-                <Canvas ref='canvas' width={500} height={500} />
+                <Title>
+                    {this.state.loggedUser && <button onClick={this.save}>SAVE</button>}
+                    {this.state.loggedUser && <input type='text' placeholder='Proyect name'/>}
+                </Title>
+                <article>
+                    <Menu>
+                        <button><i className="fas fa-code"></i></button>
+                    </Menu>
+                    <CodeEditor>
+                        {Array.from(Array(50), (input, idx) => {
+                            return (
+                                <div key={idx}>
+                                    <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
+                                    <input 
+                                        name={`input${idx}`}
+                                        value={this.state.input}
+                                        onChange={this.handleInput}
+                                        onKeyUp={this.draw}
+                                    />
+                                </div>
+                            )
+                        })}
+                    </CodeEditor>
+                    <Canvas ref='canvas' width={500} height={500} />
+                </article>
             </Container>
         )
     }

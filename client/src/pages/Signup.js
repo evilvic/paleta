@@ -11,7 +11,7 @@ const Signup = () => (
                     <h2>Signup</h2>
                     <label>Username</label>
                     <input
-                        placeholder='username'
+                        placeholder='evilvic'
                         name='username'
                         type='text'
                         value={ context.state.formSignup.username }
@@ -19,7 +19,7 @@ const Signup = () => (
                     />
                     <label>Email</label>
                     <input
-                        placeholder='Email'
+                        placeholder='evilvic@paleta.com'
                         name='email'
                         type='email'
                         value={ context.state.formSignup.email }
@@ -27,7 +27,7 @@ const Signup = () => (
                     />
                     <label>Password</label>
                     <input
-                        placeholder='Password'
+                        placeholder='●●●●●●●'
                         name='password'
                         type='password'
                         value={ context.state.formSignup.password }
