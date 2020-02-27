@@ -1,22 +1,33 @@
 import React, { Component } from 'react'
 import { Container, CodeEditor, Canvas } from '../style/components'
-import User from '../components/User'
+import AUTH_SERVICE from '../services/auth'
+import PROJECTS_SERVICE from '../services/project'
 
 
 class Playground extends Component {
 
     state = {
         title: '',
-        input0: '', input1: '', input2: '', input3: '', input4: '', input5: '', input6: '', input7: '', input8: '', input9: '',
-        input10: '', input11: '', input12: '', input13: '', input14: '', input15: '', input16: '', input17: '', input18: '', input19: '',
-        input20: '', input21: '', input22: '', input23: '', input24: '', input25: '', input26: '', input27: '', input28: '', input29: '',
-        input30: '', input31: '', input32: '', input33: '', input34: '', input35: '', input36: '', input37: '', input38: '', input39: '',
-        input40: '', input41: '', input42: '', input43: '', input44: '', input45: '', input46: '', input47: '', input48: '', input49: ''
+        loggedUser: null,
+        isLoggedIn: false,
+        commands: {
+            input0: '', input1: '', input2: '', input3: '', input4: '', input5: '', input6: '', input7: '', input8: '', input9: '',
+            input10: '', input11: '', input12: '', input13: '', input14: '', input15: '', input16: '', input17: '', input18: '', input19: '',
+            input20: '', input21: '', input22: '', input23: '', input24: '', input25: '', input26: '', input27: '', input28: '', input29: '',
+            input30: '', input31: '', input32: '', input33: '', input34: '', input35: '', input36: '', input37: '', input38: '', input39: '',
+            input40: '', input41: '', input42: '', input43: '', input44: '', input45: '', input46: '', input47: '', input48: '', input49: ''
+        }
     }
 
     handleInput = e => {
         const { name, value } = e.target
-        this.setState({[name]: value})
+        this.setState(prevState => ({
+            ...prevState,
+            commands: {
+                ...prevState.commands,
+                [name]: value
+            }
+        }))
     }
 
     draw = e => {
@@ -27,8 +38,8 @@ class Playground extends Component {
 
         let commands = []
 
-        for (let value in this.state) {
-            commands.push(this.state[value])
+        for (let value in this.state.commands) {
+            commands.push(this.state.commands[value])
         }
 
         commands.forEach((com, idx) => {
@@ -200,25 +211,59 @@ class Playground extends Component {
                     ctx.fillStyle = color
                     ctx.fillText(( `${command[1] || ''} ${command[2] || ''} ${command[3] || ''} ${command[4] || ''} ${command[5] || ''}`), x, y)
                     break
-                
+                default:
             }
         })
 
     }
 
-    save = e => {
+    save = async e => {
         e.preventDefault()
         const canvas = this.refs.canvas
-        const image = canvas.toDataURL("image/png")
-        console.log(this.state, this.props)
+        const photoUrl = canvas.toDataURL("image/png")
+
+        const { title } = this.state
+
+        const {
+            input0, input1, input2, input3, input4, input5, input6, input7, input8, input9,
+            input10, input11, input12, input13, input14, input15, input16, input17, input18, input19,
+            input20, input21, input22, input23, input24, input25, input26, input27, input28, input29,
+            input30, input31, input32, input33, input34, input35, input36, input37, input38, input39,
+            input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
+        } = this.state.commands
+
+        //const { _id } = this.state.loggedUser
+
+        await PROJECTS_SERVICE.create({
+            title,
+            //author: _id,
+            photoUrl,
+            input0, input1, input2, input3, input4, input5, input6, input7, input8, input9,
+            input10, input11, input12, input13, input14, input15, input16, input17, input18, input19,
+            input20, input21, input22, input23, input24, input25, input26, input27, input28, input29,
+            input30, input31, input32, input33, input34, input35, input36, input37, input38, input39,
+            input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
+        })
     }
 
-    componentDidMount() {}
+    componentDidMount () {
+        AUTH_SERVICE.getUser()
+        .then(({ data }) => {
+            this.setState(prevState => ({
+                ...prevState,
+                loggedUser: data.user,
+                isLoggedIn: true
+            }))
+        })
+        .catch(() => {
+            console.log('Somethinmg went wrong...')
+        })
+        
+    }
 
     render() {
         return (
             <Container>
-            <User />
                 <CodeEditor>
                     {Array.from(Array(50), (input, idx) => {
                         return (

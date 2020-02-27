@@ -26,5 +26,10 @@ router
         res.status(200).json({ msg: 'User logged out' })
 
     })
+    .get('/user', (req, res, next) => {
+
+        const { user } = req
+        res.status(200).json({ user })
+    })
 
 module.exports = router

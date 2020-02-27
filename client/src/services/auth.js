@@ -13,6 +13,9 @@ const AUTH_SERVICE = {
     },
     login: async data => {
         return await MY_SERVICE.post('/login', data)
+    },
+    getUser: async data => {
+        return await MY_SERVICE.get('/user', data)
     }
 }
 

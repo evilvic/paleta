@@ -17,8 +17,7 @@ class MyProvider extends Component {
             password: ''
         },
         isLoggedIn: false,
-        loggedUser: null,
-        test: 'test'
+        loggedUser: null
     }
 
     handleSignupInput = e => {
