@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react'
+import { Link } from 'react-router-dom'
 import { MyContext } from '../Context'
 
 const Profile = ({ history }) => {
@@ -21,6 +22,7 @@ const Profile = ({ history }) => {
                     <>
                         <h2>Profile</h2>
                         <h3>{ loggedUser.username }</h3>
+                        <Link to='/playground'>PLAYGROUND</Link>
                     </>
                 )
                 else return <>Loading...</>

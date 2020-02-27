@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000'
+const baseURL = 'http://localhost:3000/auth'
 
 const MY_SERVICE = axios.create({
     baseURL,
@@ -9,10 +9,10 @@ const MY_SERVICE = axios.create({
 
 const AUTH_SERVICE = {
     signup: async data => {
-        return await MY_SERVICE.post('/auth/signup', data)
+        return await MY_SERVICE.post('/signup', data)
     },
     login: async data => {
-        return await MY_SERVICE.post('/auth/login', data)
+        return await MY_SERVICE.post('/login', data)
     }
 }
 

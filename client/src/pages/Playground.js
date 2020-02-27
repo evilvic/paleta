@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { Container, CodeEditor, Canvas } from '../style/components'
+import User from '../components/User'
 
 
 class Playground extends Component {
 
     state = {
+        title: '',
         input0: '', input1: '', input2: '', input3: '', input4: '', input5: '', input6: '', input7: '', input8: '', input9: '',
         input10: '', input11: '', input12: '', input13: '', input14: '', input15: '', input16: '', input17: '', input18: '', input19: '',
         input20: '', input21: '', input22: '', input23: '', input24: '', input25: '', input26: '', input27: '', input28: '', input29: '',
@@ -208,7 +210,7 @@ class Playground extends Component {
         e.preventDefault()
         const canvas = this.refs.canvas
         const image = canvas.toDataURL("image/png")
-        
+        console.log(this.state, this.props)
     }
 
     componentDidMount() {}
@@ -216,6 +218,7 @@ class Playground extends Component {
     render() {
         return (
             <Container>
+            <User />
                 <CodeEditor>
                     {Array.from(Array(50), (input, idx) => {
                         return (
@@ -233,7 +236,6 @@ class Playground extends Component {
                 </CodeEditor>
                 <button onClick={this.save}>SAVE</button>
                 <Canvas ref='canvas' width={500} height={500} />
-                
             </Container>
         )
     }
