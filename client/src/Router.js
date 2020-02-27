@@ -1,11 +1,11 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
+import NavBar from './components/NavBar'
 import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Playground from './pages/Playground'
 
-const NavBar = () => <h1>NavBar</h1>
 const Home = () => <h1>Home</h1>
 
 const Router = () => (

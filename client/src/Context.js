@@ -81,12 +81,16 @@ class MyProvider extends Component {
                     isLoggedIn: true
                 }))
                 this.props.history.push('/profile')
-                console.log(this.state)
             })
             .catch(() => {
                 console.log('Somethinmg went wrong...')
             })
 
+    }
+
+    handleLogout = e => {
+        console.log('holi consoli')
+        e.preventDefault()
     }
 
     render() {

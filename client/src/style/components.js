@@ -49,3 +49,43 @@ export const Canvas = styled.canvas`
     width: 500px;
     height: 500px;
 `
+
+export const Navbar = styled.nav`
+    width: 100vw;
+    height: 10vh;
+    padding: 0 5vw;
+    background: rgb(86,86,100);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    p {
+        color: rgb(253,253,253);
+        font-family: 'Baloo', sans-serif;
+        font-size: 3rem;
+    }
+    a {
+        color: rgb(253,253,253);
+        text-decoration: none;
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 1.5rem;
+        padding: 10px 15px;
+        margin-left: 5px;
+        border-radius: 5px;
+    }
+    section {
+        display: flex;
+        width: 80vw;
+        justify-content: space-between;
+        align-items: center;
+    }
+`
+
+export const LogoutButton = styled.button`
+    background: tomato;
+    color: rgb(253,253,253);
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.5rem;
+    padding: 10px 15px;
+    margin-left: 5px;
+    border-radius: 5px;
+`
