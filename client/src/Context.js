@@ -88,9 +88,22 @@ class MyProvider extends Component {
 
     }
 
-    handleLogout = e => {
-        console.log('holi consoli')
-        e.preventDefault()
+    handleLogout = async e => {
+        await AUTH_SERVICE.logout()
+        this.setState({
+            formSignup: {
+                username: '',
+                email: '',
+                password: ''
+            },
+            formLogin: {
+                username: '',
+                password: ''
+            },
+            isLoggedIn: false,
+            loggedUser: null
+        })
+        
     }
 
     render() {
@@ -100,7 +113,8 @@ class MyProvider extends Component {
             handleSignupInput,
             handleSignupSubmit,
             handleLoginInput,
-            handleLoginSubmit
+            handleLoginSubmit,
+            handleLogout
         } = this
 
         return (
@@ -110,7 +124,8 @@ class MyProvider extends Component {
                     handleSignupInput,
                     handleSignupSubmit,
                     handleLoginInput,
-                    handleLoginSubmit
+                    handleLoginSubmit,
+                    handleLogout
                 }}
             >
                 {this.props.children}

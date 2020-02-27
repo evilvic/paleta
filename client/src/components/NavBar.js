@@ -31,7 +31,7 @@ const NavBar = () => (
                         {context.state.isLoggedIn && (
                         <>
                             <NavLink to='/profile'>PROFILE</NavLink>
-                            <LogoutButton onClick={context.handleLogout}>LOG OUT</LogoutButton>
+                            <LogoutButton onClick={ context.handleLogout }>LOG OUT</LogoutButton>
                         </>
                         )}
                     </div>
