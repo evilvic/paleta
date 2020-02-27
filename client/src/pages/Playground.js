@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Container, CodeEditor, Canvas, Title, Menu } from '../style/components'
 import AUTH_SERVICE from '../services/auth'
 import PROJECTS_SERVICE from '../services/project'
+import Swal from 'sweetalert2'
 
 
 class Playground extends Component {
@@ -27,6 +28,15 @@ class Playground extends Component {
                 [name]: value
             }
         }))
+    }
+
+    handleTitleInput = e => {
+        const {name, value } = e.target
+        this.setState(prevState => ({
+            ...prevState,
+            [name]: value
+        }))
+        console.log(this.state)
     }
 
     draw = e => {
@@ -243,6 +253,14 @@ class Playground extends Component {
             input30, input31, input32, input33, input34, input35, input36, input37, input38, input39,
             input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
         })
+
+        Swal.fire({
+            position: 'top',
+            icon: 'success',
+            title: 'Your proyect has been saved',
+            showConfirmButton: false,
+            timer: 1000
+        })
     }
 
     componentDidMount () {
@@ -264,7 +282,7 @@ class Playground extends Component {
             <Container>
                 <Title>
                     {this.state.loggedUser && <button onClick={this.save}>SAVE</button>}
-                    {this.state.loggedUser && <input type='text' placeholder='Proyect name'/>}
+                    {this.state.loggedUser && <input type='text' placeholder='Proyect name' name='title' value={this.state.title} onChange={this.handleTitleInput}/>}
                 </Title>
                 <article>
                     <Menu>

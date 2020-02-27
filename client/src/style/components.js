@@ -201,3 +201,46 @@ export const Menu = styled.div`
         }
    }
 `
+
+export const GallerySection = styled.section`
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: space-between;
+    padding: 75px 5vw; 
+`
+
+export const Card = styled.article`
+    width: 260px;
+    height: 320px;
+    background: rgb(86,86,100);
+    border-radius: 5px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    img {
+        background: white;
+        width: 240px;
+        height: 240px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+    h3 {
+        font-size: 2rem;
+        color: rgb(253,253,253);
+        align-self: flex-start;
+        margin-bottom: 5px;
+    }
+    h4 {
+        font-size: 1.5rem;
+        color: rgb(255,133,82);
+        align-self: flex-start;
+    }
+    span {
+        color: rgb(253,253,253);
+    }
+
+`

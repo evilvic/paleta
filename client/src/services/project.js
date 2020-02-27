@@ -8,8 +8,8 @@ const MY_SERVICE = axios.create({
 })
 
 const PROJECTS_SERVICE = {
-    getAll: async data => {
-        return await MY_SERVICE.get('/', data)
+    getAll: async () => {
+        return await MY_SERVICE.get('/')
     },
     create: async data => {
         return await MY_SERVICE.post('/new', data)

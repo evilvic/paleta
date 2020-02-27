@@ -1,6 +1,7 @@
 import React, { Component, createContext } from 'react'
 import { withRouter } from 'react-router-dom'
 import AUTH_SERVICE from './services/auth'
+import PROJECTS_SERVICE from './services/project'
 
 export const MyContext = createContext()
 
@@ -17,7 +18,8 @@ class MyProvider extends Component {
             password: ''
         },
         isLoggedIn: false,
-        loggedUser: null
+        loggedUser: null,
+        gallery: null
     }
 
     handleSignupInput = e => {
@@ -104,6 +106,16 @@ class MyProvider extends Component {
             loggedUser: null
         })
         this.props.history.push('/')
+    }
+
+    componentDidMount = async () => {
+        const {data} = await PROJECTS_SERVICE.getAll()
+        this.setState(prevState => ({
+            ...prevState,
+            gallery: data.allProjects
+        }))
+        console.log(this.state.gallery)
+        console.log(this.state)
     }
 
     render() {

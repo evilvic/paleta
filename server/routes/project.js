@@ -5,15 +5,13 @@ const Project = require('../models/Project')
 router
     .get('/', async (req, res, next) => {
 
-        const allProjects = await Project.find()
+        const allProjects = await Project.find().sort({ createdAt: -1 }).populate('author')
         res.status(200).json( { allProjects } )
 
     })
     .post('/new', (req, res, next) => {
 
         const { _id } = req.user
-
-        //const { secure_url } = req.file
 
         const { 
             title,
