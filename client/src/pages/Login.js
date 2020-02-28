@@ -16,6 +16,7 @@ const Login = () => (
                         type='text'
                         value={ context.state.formLogin.username }
                         onChange={ context.handleLoginInput }
+                        required
                     />
                     <label>Password</label>
                     <input
@@ -24,6 +25,7 @@ const Login = () => (
                         type='password'
                         value={ context.state.formLogin.password }
                         onChange={ context.handleLoginInput }
+                        required
                     />
                     <button> Login </button>
                 </form>

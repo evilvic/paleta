@@ -63,11 +63,23 @@ export const Navbar = styled.nav`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    article {
+        a {
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+    }
+    img {
+        width: 50px;
+        height: 50px;
+        margin-right: 10px;
+    }
     p {
         color: rgb(253,253,253);
         font-family: 'Baloo', sans-serif;
         font-size: 3rem;
-        margin: 0;
+        margin: 0 30px 0 0;
         padding: 0;
     }
     a {
@@ -206,8 +218,7 @@ export const GallerySection = styled.section`
     width: 100vw;
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: space-between;
+    justify-content: space-evenly;
     padding: 75px 5vw; 
 `
 
@@ -217,7 +228,6 @@ export const Card = styled.article`
     background: rgb(86,86,100);
     border-radius: 5px;
     margin-bottom: 30px;
-    margin-left: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -243,5 +253,38 @@ export const Card = styled.article`
     span {
         color: rgb(253,253,253);
     }
+`
 
+export const ProfileHeader = styled.header`
+    width: 100vw;
+    height: 300px;
+    background: rgb(87,70,123);
+    padding: 0 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        margin-right: 50px;
+    }
+    div {
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        h2 {
+        font-size: 3rem;
+        color: rgb(253,253,253);
+        padding-bottom: 30px;
+            span {
+                font-size: 3rem;
+                color: rgb(255,133,82);
+            }
+        }
+        p {
+            font-size: 2rem;
+            color: rgb(253,253,253);
+        }
+    }
 `

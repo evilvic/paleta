@@ -8,9 +8,12 @@ const NavBar = () => (
     <MyContext.Consumer>
         {context => (
             <Navbar>
+                <article>
                 <NavLink to='/'>
-                    <p>paleta</p>
+                        <img src='https://res.cloudinary.com/evilvic/image/upload/v1582908337/paleta/paleta_logo.png' alt='paleta logo' />
+                        <p>paleta</p>
                 </NavLink>
+                </article>
                 <section>
                     <div className='left'>
                         <NavLink to='/gallery'>GALLERY</NavLink>

@@ -255,12 +255,15 @@ class Playground extends Component {
         })
 
         Swal.fire({
-            position: 'top',
+            position: 'center',
             icon: 'success',
             title: 'Your proyect has been saved',
             showConfirmButton: false,
             timer: 1000
         })
+
+        this.props.history.push('/profile')
+
     }
 
     componentDidMount () {

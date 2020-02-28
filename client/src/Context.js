@@ -2,6 +2,7 @@ import React, { Component, createContext } from 'react'
 import { withRouter } from 'react-router-dom'
 import AUTH_SERVICE from './services/auth'
 import PROJECTS_SERVICE from './services/project'
+import Swal from 'sweetalert2'
 
 export const MyContext = createContext()
 
@@ -20,6 +21,14 @@ class MyProvider extends Component {
         isLoggedIn: false,
         loggedUser: null,
         gallery: null
+    }
+
+    updateGallery = async () => {
+        const {data} = await PROJECTS_SERVICE.getAll()
+        this.setState(prevState => ({
+            ...prevState,
+            gallery: data.allProjects
+        }))
     }
 
     handleSignupInput = e => {
@@ -51,7 +60,13 @@ class MyProvider extends Component {
                 this.props.history.push('/login')
             })
             .catch(() => {
-                console.log('Something went wrong...')
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'The username has alredy been taken',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
             })
         
     }
@@ -85,7 +100,13 @@ class MyProvider extends Component {
                 this.props.history.push('/profile')
             })
             .catch(() => {
-                console.log('Somethinmg went wrong...')
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Invalid credentials',
+                    showConfirmButton: false,
+                    timer: 1000
+                })
             })
 
     }
@@ -126,7 +147,8 @@ class MyProvider extends Component {
             handleSignupSubmit,
             handleLoginInput,
             handleLoginSubmit,
-            handleLogout
+            handleLogout,
+            updateGallery
         } = this
 
         return (
@@ -137,7 +159,8 @@ class MyProvider extends Component {
                     handleSignupSubmit,
                     handleLoginInput,
                     handleLoginSubmit,
-                    handleLogout
+                    handleLogout,
+                    updateGallery
                 }}
             >
                 {this.props.children}

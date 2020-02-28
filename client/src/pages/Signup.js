@@ -16,6 +16,7 @@ const Signup = () => (
                         type='text'
                         value={ context.state.formSignup.username }
                         onChange={ context.handleSignupInput }
+                        required
                     />
                     <label>Email</label>
                     <input
@@ -24,6 +25,7 @@ const Signup = () => (
                         type='email'
                         value={ context.state.formSignup.email }
                         onChange={ context.handleSignupInput }
+                        required
                     />
                     <label>Password</label>
                     <input
@@ -32,6 +34,7 @@ const Signup = () => (
                         type='password'
                         value={ context.state.formSignup.password }
                         onChange={ context.handleSignupInput }
+                        required
                     />
                     <button> Signup </button>
                 </form>
