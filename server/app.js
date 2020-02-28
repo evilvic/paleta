@@ -13,7 +13,7 @@ const session = require('express-session')
 const passport = require('./config/passport')
 
 mongoose
-  .connect('mongodb://localhost/server', {
+  .connect(process.env.DB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true

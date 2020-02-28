@@ -206,7 +206,7 @@ export const GallerySection = styled.section`
     width: 100vw;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: space-between;
     padding: 75px 5vw; 
 `
@@ -217,6 +217,7 @@ export const Card = styled.article`
     background: rgb(86,86,100);
     border-radius: 5px;
     margin-bottom: 30px;
+    margin-left: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;

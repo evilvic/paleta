@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Project = require('../models/Project')
+const User = require('../models/User')
 
 router
     .get('/', async (req, res, next) => {
@@ -9,7 +10,7 @@ router
         res.status(200).json( { allProjects } )
 
     })
-    .post('/new', (req, res, next) => {
+    .post('/new', async (req, res, next) => {
 
         const { _id } = req.user
 
@@ -23,7 +24,7 @@ router
             input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
         } = req.body
 
-        Project.create({
+        const project = await Project.create({
             title,
             author: _id,
             photoUrl,
@@ -33,8 +34,26 @@ router
             input30, input31, input32, input33, input34, input35, input36, input37, input38, input39,
             input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
         })
-        .then(project => res.status(201).json({ project }))
-        .catch(err => res.status(500).json({ err }))
+
+        const projectPopulated = await Project.findById(project._id).populate('author')
+
+        const user = await User.findByIdAndUpdate(_id, { $push: { projects: project._id  } }, { new: true } ).populate({
+            path: 'projects',
+            populate: {
+                path: 'author',
+                model: 'User'
+            }
+        })
+
+        return res.status(201).json({ user, project: projectPopulated })
+
+    })
+    .get('/:id', async (req, res, next) => {
+
+        const { id } = req.params
+        console.log(id)
+        const Project = await Project.findById(id)
+        res.status(200).json( { Project } )
 
     })
 
