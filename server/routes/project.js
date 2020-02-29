@@ -51,9 +51,8 @@ router
     .get('/:id', async (req, res, next) => {
 
         const { id } = req.params
-        console.log(id)
-        const Project = await Project.findById(id)
-        res.status(200).json( { Project } )
+        const project = await Project.findById(id).populate('author')
+        res.status(200).json( { project } )
 
     })
 

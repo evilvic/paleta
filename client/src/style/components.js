@@ -288,3 +288,70 @@ export const ProfileHeader = styled.header`
         }
     }
 `
+
+export const DetailContainer = styled.main`
+    width: 100vw;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: rgb(70,70,85);
+    section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 80vw;
+    }
+    div {
+        display: flex;
+        flex-direction: column;
+    }
+    article {
+        width: 500px;
+        height: 100px;
+        background: white;
+        margin-bottom: 20px;
+        border-radius: 5px;
+    }
+`
+
+export const DetailCanvas = styled.div`
+    background: rgb(86,86,100);
+    width: 500px;
+    height: 500px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    padding: 10px 0;
+    img {
+        width: 480px;
+        height: 480px;
+        border-radius: 5px;
+    }
+`
+
+export const DetailTitle = styled.header`
+width: 100vw;
+height: 100px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0 5vw;
+h1 {
+    color: rgb(253,253,253);
+    font-size: 3rem;
+    margin-left: 80px;
+}
+p {
+    color: rgb(253,253,253);
+    font-size: 2rem;
+    margin-left: 80px;
+    color: rgb(255,133,82);
+    span {
+        color: rgb(253,253,253);
+    }
+}
+`

@@ -11,4 +11,7 @@ export default createGlobalStyle`
   body {
     background: rgb(70,70,85);
   }
+  a {
+    text-decoration: none;
+  }
 `

@@ -13,6 +13,9 @@ const PROJECTS_SERVICE = {
     },
     create: async data => {
         return await MY_SERVICE.post('/new', data)
+    },
+    getOne: async id => {
+        return await MY_SERVICE.get(`/${id}`)
     }
 }
 

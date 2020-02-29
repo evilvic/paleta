@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import Playground from './pages/Playground'
 import Gallery from './pages/Gallery'
+import Detail from './pages/Detail'
 
 const Home = () => <h1>Home</h1>
 
@@ -19,6 +20,7 @@ const Router = () => (
             <Route exact path='/profile' component={Profile} />
             <Route exact path='/gallery' component={Gallery} />
             <Route exact path='/playground' component={Playground} />
+            <Route exact path='/detail' component={Detail} />
         </Switch>
     </>
 )

@@ -20,7 +20,13 @@ class MyProvider extends Component {
         },
         isLoggedIn: false,
         loggedUser: null,
-        gallery: null
+        gallery: null,
+        art: null
+    }
+
+    getArt = async id => {
+        const { data: { project } } = await PROJECTS_SERVICE.getOne(id)
+        this.setState({art: project})
     }
 
     updateGallery = async () => {
@@ -148,7 +154,8 @@ class MyProvider extends Component {
             handleLoginInput,
             handleLoginSubmit,
             handleLogout,
-            updateGallery
+            updateGallery,
+            getArt
         } = this
 
         return (
@@ -160,7 +167,8 @@ class MyProvider extends Component {
                     handleLoginInput,
                     handleLoginSubmit,
                     handleLogout,
-                    updateGallery
+                    updateGallery,
+                    getArt
                 }}
             >
                 {this.props.children}

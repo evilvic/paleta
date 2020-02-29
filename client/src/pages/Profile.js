@@ -10,7 +10,7 @@ const Profile = ({ history }) => {
     useEffect(() => {
         if (!context.state.isLoggedIn) return history.push('/login')
         context.updateGallery()
-    })
+    }, [])
 
     return (
         
@@ -32,11 +32,13 @@ const Profile = ({ history }) => {
                         <GallerySection>
                             {context.state.gallery.map((project, idx) => {
                                 if (project.author.username === loggedUser.username) return (
-                                <Card key={idx}>
-                                <img src={project.photoUrl} alt={project.title} />
-                                <h3>{project.title}</h3>
-                                <h4><span>by </span>{project.author.username}</h4>
-                                </Card>
+                                    <Link to={`/project/${project._id}`} key={idx}>
+                                        <Card>
+                                        <img src={project.photoUrl} alt={project.title} />
+                                        <h3>{project.title}</h3>
+                                        <h4><span>by </span>{project.author.username}</h4>
+                                        </Card>
+                                    </Link>
                                 )
                             }
                             )}
