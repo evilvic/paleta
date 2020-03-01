@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { MyContext } from '../Context'
-import { DetailContainer, DetailCanvas, DetailTitle } from '../style/components'
+import { DetailContainer, DetailCanvas, DetailTitle, CommentInput, StyledComment } from '../style/components'
 
 const Detail = () => {
 
@@ -15,7 +15,6 @@ const Detail = () => {
             {context => {
                 
                 const { art } = context.state
-                console.log(art)
                 if (art)
                 return (
                     <>
@@ -26,11 +25,24 @@ const Detail = () => {
                             </DetailTitle>
                             <section>
                                 <DetailCanvas>
-                                    <img src={context.state.art.photoUrl} />
+                                    <img src={context.state.art.photoUrl} alt={context.state.art.title}/>
                                 </DetailCanvas>
                                 <div>
-                                    <article></article>
-                                    <article></article>
+                                    <CommentInput>
+                                        <textarea rows='3' cols='40' placeholder='Write a comment.'></textarea>
+                                        <button>SEND</button>
+                                    </CommentInput>
+                                    {context.state.comments.map((comment, idx) => {
+                                        if (context.state.art._id === comment.project._id) return (
+                                            <StyledComment key={idx}>
+                                                <div>
+                                                    <img src={comment.author.photoUrl} alt={comment.author.username}/>
+                                                    <h6>{comment.author.username}</h6>
+                                                </div>
+                                                <p>{comment.content}</p>
+                                            </StyledComment>
+                                        )
+                                    })}
                                 </div>
                             </section>
                         </DetailContainer>

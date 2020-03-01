@@ -306,13 +306,7 @@ export const DetailContainer = styled.main`
     div {
         display: flex;
         flex-direction: column;
-    }
-    article {
-        width: 500px;
-        height: 100px;
-        background: white;
-        margin-bottom: 20px;
-        border-radius: 5px;
+        align-items: center;
     }
 `
 
@@ -354,4 +348,59 @@ p {
         color: rgb(253,253,253);
     }
 }
+`
+
+export const StyledComment = styled.article`
+    width: 500px;
+    height: 100px;
+    background: rgb(86,86,100);
+    margin-bottom: 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-bottom: 5px;
+    }
+    h6 {
+        color: rgb(255,133,82);
+    }
+    p {
+        color: rgb(253,253,253);
+        width: 380px;
+        font-size: 1.5rem;
+    }
+`
+
+export const CommentInput = styled.form`
+    width: 500px;
+    height: 100px;
+    background: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgb(86,86,100);
+    padding: 0 20px;
+    textarea {
+        border-radius: 5px;
+        font-size: 1.5rem;
+        padding: 10px;
+    }
+    button {
+        width: 75px;
+        background: greenyellow;
+        color: rgb(87,70,123);
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 1.5rem;
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        }
 `

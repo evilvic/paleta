@@ -2,6 +2,7 @@ import React, { Component, createContext } from 'react'
 import { withRouter } from 'react-router-dom'
 import AUTH_SERVICE from './services/auth'
 import PROJECTS_SERVICE from './services/project'
+import COMMENTS_SERVICE from './services/comment'
 import Swal from 'sweetalert2'
 
 export const MyContext = createContext()
@@ -21,7 +22,8 @@ class MyProvider extends Component {
         isLoggedIn: false,
         loggedUser: null,
         gallery: null,
-        art: null
+        art: null,
+        comments: null
     }
 
     getArt = async id => {
@@ -137,12 +139,13 @@ class MyProvider extends Component {
 
     componentDidMount = async () => {
         const {data} = await PROJECTS_SERVICE.getAll()
+        const {data: { allComments} } = await COMMENTS_SERVICE.getAll()
         this.setState(prevState => ({
             ...prevState,
-            gallery: data.allProjects
+            gallery: data.allProjects,
+            comments: allComments
         }))
-        console.log(this.state.gallery)
-        console.log(this.state)
+        
     }
 
     render() {
