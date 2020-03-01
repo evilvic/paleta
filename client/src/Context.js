@@ -23,12 +23,16 @@ class MyProvider extends Component {
         loggedUser: null,
         gallery: null,
         art: null,
+        artComment: '',
         comments: null
     }
 
     getArt = async id => {
         const { data: { project } } = await PROJECTS_SERVICE.getOne(id)
-        this.setState({art: project})
+        this.setState(prevState => ({
+            ...prevState,
+            art: project
+        }))
     }
 
     updateGallery = async () => {
@@ -37,6 +41,39 @@ class MyProvider extends Component {
             ...prevState,
             gallery: data.allProjects
         }))
+    }
+
+    updateComments = async () => {
+        const {data: { allComments} } = await COMMENTS_SERVICE.getAll()
+        this.setState(prevState => ({
+            ...prevState,
+            comments: allComments
+        }))
+    }
+
+    handleCommentInput = e => {
+        const { value } = e.target
+        this.setState({artComment: value})
+    }
+
+    handleCommentSubmit = async e => {
+
+        e.preventDefault()
+        const { artComment, art} = this.state
+
+        console.log(artComment, art._id)
+
+        await COMMENTS_SERVICE.create({
+            content: artComment,
+            project: art._id
+        })
+
+        this.setState(prevState => ({
+            ...prevState,
+            artComment: ''
+        }))
+
+
     }
 
     handleSignupInput = e => {
@@ -158,7 +195,10 @@ class MyProvider extends Component {
             handleLoginSubmit,
             handleLogout,
             updateGallery,
-            getArt
+            getArt,
+            handleCommentInput,
+            handleCommentSubmit,
+            updateComments
         } = this
 
         return (
@@ -171,7 +211,10 @@ class MyProvider extends Component {
                     handleLoginSubmit,
                     handleLogout,
                     updateGallery,
-                    getArt
+                    getArt,
+                    handleCommentInput,
+                    handleCommentSubmit,
+                    updateComments
                 }}
             >
                 {this.props.children}

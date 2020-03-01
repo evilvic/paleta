@@ -241,11 +241,8 @@ class Playground extends Component {
             input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
         } = this.state.commands
 
-        //const { _id } = this.state.loggedUser
-
         await PROJECTS_SERVICE.create({
             title,
-            //author: _id,
             photoUrl,
             input0, input1, input2, input3, input4, input5, input6, input7, input8, input9,
             input10, input11, input12, input13, input14, input15, input16, input17, input18, input19,

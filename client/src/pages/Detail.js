@@ -1,6 +1,13 @@
 import React, { useContext, useEffect } from 'react'
 import { MyContext } from '../Context'
-import { DetailContainer, DetailCanvas, DetailTitle, CommentInput, StyledComment } from '../style/components'
+import { 
+    DetailContainer,
+    DetailCanvas, 
+    DetailTitle, 
+    CommentInput, 
+    StyledComment, 
+    CommentsContainer
+} from '../style/components'
 
 const Detail = () => {
 
@@ -8,7 +15,9 @@ const Detail = () => {
 
     useEffect(() => {
         context.state.art = null
-    })
+        context.state.artComment = ''
+        
+    }, context.updateComments())
 
     return (
         <MyContext.Consumer>
@@ -27,11 +36,23 @@ const Detail = () => {
                                 <DetailCanvas>
                                     <img src={context.state.art.photoUrl} alt={context.state.art.title}/>
                                 </DetailCanvas>
-                                <div>
-                                    <CommentInput>
-                                        <textarea rows='3' cols='40' placeholder='Write a comment.'></textarea>
+                                <CommentsContainer>
+                                    {context.state.loggedUser && 
+
+                                    <CommentInput onSubmit={context.handleCommentSubmit}>
+                                        <textarea 
+                                            rows='3' 
+                                            cols='40' 
+                                            placeholder='Write a comment.' 
+                                            name='artComment'
+                                            onChange={context.handleCommentInput}
+                                            value={context.state.artComment}
+                                        ></textarea>
                                         <button>SEND</button>
+                                        
                                     </CommentInput>
+
+                                    }
                                     {context.state.comments.map((comment, idx) => {
                                         if (context.state.art._id === comment.project._id) return (
                                             <StyledComment key={idx}>
@@ -43,7 +64,7 @@ const Detail = () => {
                                             </StyledComment>
                                         )
                                     })}
-                                </div>
+                                </CommentsContainer>
                             </section>
                         </DetailContainer>
                     </>

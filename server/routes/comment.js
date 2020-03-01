@@ -7,7 +7,7 @@ const User = require('../models/User')
 router
     .get('/', async (req, res, next) => {
 
-        const allComments = await Comment.find().populate('project').populate('author')
+        const allComments = await Comment.find().sort({ createdAt: -1 }).populate('project').populate('author')
         res.status(200).json( { allComments } )
 
     })

@@ -359,7 +359,7 @@ export const StyledComment = styled.article`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 10px 20px;
     img {
         width: 50px;
         height: 50px;
@@ -386,7 +386,7 @@ export const CommentInput = styled.form`
     align-items: center;
     justify-content: space-between;
     background: rgb(86,86,100);
-    padding: 0 20px;
+    padding: 10px 20px;
     textarea {
         border-radius: 5px;
         font-size: 1.5rem;
@@ -403,4 +403,13 @@ export const CommentInput = styled.form`
         border: none;
         outline: none;
         }
+`
+
+export const CommentsContainer = styled.div`
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 500px;
 `
