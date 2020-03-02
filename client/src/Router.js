@@ -7,8 +7,7 @@ import Profile from './pages/Profile'
 import Playground from './pages/Playground'
 import Gallery from './pages/Gallery'
 import Detail from './pages/Detail'
-
-const Home = () => <h1>Home</h1>
+import Home from './pages/Home'
 
 const Router = () => (
     <>

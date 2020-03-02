@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { colors } from './index'
 
 export const Container = styled.main`
     width: 100vw;
@@ -16,7 +17,6 @@ export const Container = styled.main`
 `
 
 export const CodeEditor = styled.section`
-    @import url('https://fonts.googleapis.com/css?family=PT+Mono&display=swap');
     width: 500px;
     height: 500px;
     overflow: scroll;
@@ -412,4 +412,53 @@ export const CommentsContainer = styled.div`
     align-items: center;
     width: 500px;
     height: 500px;
+`
+
+export const MainHeader = styled.header`
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-left: 25vw;
+    h1 {
+        color: ${colors.blue};
+        font-size: 5rem;
+        width: 650px;
+        font-family: 'Fredoka One', sans-serif;
+    }
+    h2 {
+        color: ${colors.lightPink};
+        font-size: 5rem;
+        width: 650px;
+        font-family: 'Fredoka One', sans-serif;
+    }
+    p {
+        color: white;
+        font-size: 3rem;
+        width: 550px;
+        line-height: 3.5rem;
+        padding-top: 30px;
+        span {
+            font-size: 3.5rem;
+            font-family: 'Baloo', sans-serif;
+        }
+    }
+    a {
+        width: 250px;
+        height: 40px;
+        margin: 20px 0 20px 0;
+        background: ${colors.purple};
+        border: none;
+        outline: none;
+        padding: 10px;
+        border-radius: 5px;
+        color: rgb(253,253,253);
+        font-family: 'Fredoka One', sans-serif;
+        font-size: 1.5rem;
+        text-align: center;
+        margin-left: 30vw;
+        margin-top: 30px;
+    }
 `
