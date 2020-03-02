@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, CodeEditor, Canvas, Title, Menu } from '../style/components'
+import { Container, CodeEditor, Canvas, Title, Menu, StyledInfo } from '../style/components'
 import AUTH_SERVICE from '../services/auth'
 import PROJECTS_SERVICE from '../services/project'
 import Swal from 'sweetalert2'
@@ -16,7 +16,105 @@ class Playground extends Component {
             input20: '', input21: '', input22: '', input23: '', input24: '', input25: '', input26: '', input27: '', input28: '', input29: '',
             input30: '', input31: '', input32: '', input33: '', input34: '', input35: '', input36: '', input37: '', input38: '', input39: '',
             input40: '', input41: '', input42: '', input43: '', input44: '', input45: '', input46: '', input47: '', input48: '', input49: ''
+        },
+        buttons: {
+            code: true,
+            figures: false,
+            move: false,
+            text: false,
+            color: false,
+            other: false
         }
+    }
+
+    handleCodeButton = e => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            ...prevState,
+            buttons: {
+                code: true,
+                figures: false,
+                move: false,
+                text: false,
+                color: false,
+                other: false
+            }
+        }))
+    }
+
+    handleFiguresButton = e => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            ...prevState,
+            buttons: {
+                code: false,
+                figures: true,
+                move: false,
+                text: false,
+                color: false,
+                other: false
+            }
+        }))
+    }
+
+    handleMoveButton = e => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            ...prevState,
+            buttons: {
+                code: false,
+                figures: false,
+                move: true,
+                text: false,
+                color: false,
+                other: false
+            }
+        }))
+    }
+
+    handleTextButton = e => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            ...prevState,
+            buttons: {
+                code: false,
+                figures: false,
+                move: false,
+                text: true,
+                color: false,
+                other: false
+            }
+        }))
+    }
+
+    handleColorButton = e => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            ...prevState,
+            buttons: {
+                code: false,
+                figures: false,
+                move: false,
+                text: false,
+                color: true,
+                other: false
+            }
+        }))
+    }
+
+    handleOtherButton = e => {
+        e.preventDefault()
+        this.setState(prevState => ({
+            ...prevState,
+            buttons: {
+                code: false,
+                figures: false,
+                move: false,
+                text: false,
+                color: false,
+                other: true
+            }
+        }))
     }
 
     handleInput = e => {
@@ -286,23 +384,106 @@ class Playground extends Component {
                 </Title>
                 <article>
                     <Menu>
-                        <button><i className="fas fa-code"></i></button>
+
+                        <button 
+                            onClick={this.handleCodeButton}
+                            style={this.state.buttons.code ? {background: 'orange'} : {background: 'grey'}}
+                        ><i className="fas fa-code"></i></button>
+
+                        <button 
+                            onClick={this.handleFiguresButton}
+                            style={this.state.buttons.figures ? {background: 'orange'} : {background: 'grey'}}
+                        ><i className="far fa-circle"></i></button>
+
+                        <button 
+                            onClick={this.handleMoveButton}
+                            style={this.state.buttons.move ? {background: 'orange'} : {background: 'grey'}}
+                        ><i className="fas fa-arrows-alt"></i></button>
+
+                        <button 
+                            onClick={this.handleTextButton}
+                            style={this.state.buttons.text ? {background: 'orange'} : {background: 'grey'}}
+                        ><i className="fas fa-font"></i></button>
+
+                        <button 
+                            onClick={this.handleColorButton}
+                            style={this.state.buttons.color ? {background: 'orange'} : {background: 'grey'}}
+                        ><i className="fas fa-eye-dropper"></i></button>
+
+                        <button 
+                            onClick={this.handleOtherButton}
+                            style={this.state.buttons.other ? {background: 'orange'} : {background: 'grey'}}
+                        ><i className="fas fa-ellipsis-h"></i></button>
+
                     </Menu>
-                    <CodeEditor>
-                        {Array.from(Array(50), (input, idx) => {
-                            return (
-                                <div key={idx}>
-                                    <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
-                                    <input 
-                                        name={`input${idx}`}
-                                        value={this.state.input}
-                                        onChange={this.handleInput}
-                                        onKeyUp={this.draw}
-                                    />
-                                </div>
-                            )
-                        })}
-                    </CodeEditor>
+                    
+                        <CodeEditor
+                            style={!this.state.buttons.code ? {display: 'none'} : {display: 'block'} }
+                        >
+                            {Array.from(Array(50), (input, idx) => {
+                                return (
+                                    <div key={idx}>
+                                        <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
+                                        <input 
+                                            name={`input${idx}`}
+                                            value={this.state.input}
+                                            onChange={this.handleInput}
+                                            onKeyUp={this.draw}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </CodeEditor>
+                    
+                    {this.state.buttons.figures &&
+                        <StyledInfo>
+                            <h3>Figures</h3>
+                            <h4>square <i>size</i></h4>
+                            <p>Draws a square of a given size.</p>
+                            <h4>rectangle <i>width</i> <i>height</i></h4>
+                            <p>Draws a rectangle of a given width and height.</p>
+                            <h4>circle <i>radius</i> </h4>
+                            <p>Draws a circle of a given radius.</p>
+                            <h4>ellipse <i>radiusX</i> <i>radiusY</i></h4>
+                            <p>Draws an ellipse whit a given radius in X and Y.</p>
+                            <h4>arc <i>radius</i> <i>start</i> <i>end</i></h4>
+                            <p>Draws an arc of a given radius with a start and end from 0 to 2.</p>
+                        </StyledInfo>
+                    }
+                    {this.state.buttons.move &&
+                        <StyledInfo>
+                            <h3>MOVEMENT</h3>
+                            <h4>move <i>x</i> <i>y</i></h4>
+                            <p>Moves to a new position whit a given coordinate.</p>
+                        </StyledInfo>
+                    }
+                    {this.state.buttons.text &&
+                        <StyledInfo>
+                            <h3>TEXT</h3>
+                            <h4>text <i>message</i></h4>
+                            <p>Prints a given message.</p>
+                            <h4>font <i>fontFamily</i> <i>size</i></h4>
+                            <p>Prints a given message.</p>
+                        </StyledInfo>
+                    }
+                    {this.state.buttons.color &&
+                        <StyledInfo>
+                            <h3>COLOR</h3>
+                            <h4>background <i>color</i></h4>
+                            <p>Changes the color of the background.</p>
+                            <h4>color <i>color</i> <i>size</i></h4>
+                            <p>Changes the color of the figures.</p>
+                        </StyledInfo>
+                    }
+                    {this.state.buttons.other &&
+                        <StyledInfo>
+                            <h3>MISCELLNEOUS</h3>
+                            <h4>canvas size</h4>
+                            <p>The canvas size is 500 x 500 pixels.</p>
+                            <h4>coordinates</h4>
+                            <p>The coordinates start in the upper-left corner.</p>
+                        </StyledInfo>
+                    }
                     <Canvas ref='canvas' width={500} height={500} />
                 </article>
             </Container>

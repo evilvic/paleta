@@ -200,6 +200,10 @@ export const Title = styled.header`
 
 export const Menu = styled.div`
     width: 75px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     button {
         background: rgb(255,133,82);
         width: 75px;
@@ -460,5 +464,35 @@ export const MainHeader = styled.header`
         text-align: center;
         margin-left: 30vw;
         margin-top: 30px;
+    }
+`
+
+export const StyledInfo = styled.div`
+    width: 500px;
+    height: 500px;
+    overflow: scroll;
+    background: rgb(87,70,123);
+    border-radius: 5px;
+    padding: 30px;
+    box-sizing: border-box;
+    h3 {
+        font-size: 3rem;
+        color: ${colors.lightPink};
+        font-family: 'Fredoka One', sans-serif;
+        margin-bottom: 20px;
+    }
+    h4 {
+        font-size: 2.5rem;
+        color: ${colors.yellow};
+        margin-bottom: 5px;
+        i {
+            font-size: 2rem;
+            color: ${colors.blue};
+        }
+    }
+    p {
+        color: ${colors.white};
+        font-size: 1.5rem;
+        margin-bottom: 20px;
     }
 `

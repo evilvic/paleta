@@ -16,8 +16,8 @@ const NavBar = () => (
                 </article>
                 <section>
                     <div className='left'>
-                        <NavLink to='/gallery'>GALLERY</NavLink>
                         <NavLink to='/playground'>PLAYGROUND</NavLink>
+                        <NavLink to='/gallery'>GALLERY</NavLink>
                     </div>
                     <div className='right'>
                         {!context.state.isLoggedIn && (
