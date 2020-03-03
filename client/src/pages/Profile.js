@@ -35,8 +35,27 @@ const Profile = ({ history }) => {
                                     
                                         <Card key={idx}>
                                         <img src={project.photoUrl} alt={project.title} />
-                                        <h3>{project.title}</h3>
-                                        <h4><span>by </span>{project.author.username}</h4>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '230px'}}>
+                                            <div style={{display: 'flex', flexDirection: 'column'}}>
+                                                <h3>{project.title}</h3>
+                                                <h4><span>by </span>{project.author.username}</h4>
+                                            </div>
+                                            <button onClick={() => context.deleteProject(project._id)} 
+                                                style={{
+                                                    marginTop:'10px',
+                                                    width: '30px',
+                                                    height: '30px',
+                                                    background: 'rgb(285,151,192)',
+                                                    color: 'white',
+                                                    borderRadius: '50%',
+                                                    border: 'none',
+                                                    outline: 'none',
+                                                    position: 'relative',
+                                                    fontSize: '2rem'
+                                                    
+                                                }}
+                                            >✕</button>
+                                        </div>
                                         </Card>
                                     
                                 )

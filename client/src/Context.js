@@ -27,6 +27,10 @@ class MyProvider extends Component {
         comments: null
     }
 
+    deleteProject = async id => {
+        await PROJECTS_SERVICE.delete(id)
+    }
+
     getArt = async id => {
         const { data: { project } } = await PROJECTS_SERVICE.getOne(id)
         this.setState(prevState => ({
@@ -198,7 +202,8 @@ class MyProvider extends Component {
             getArt,
             handleCommentInput,
             handleCommentSubmit,
-            updateComments
+            updateComments,
+            deleteProject 
         } = this
 
         return (
@@ -214,7 +219,8 @@ class MyProvider extends Component {
                     getArt,
                     handleCommentInput,
                     handleCommentSubmit,
-                    updateComments
+                    updateComments,
+                    deleteProject 
                 }}
             >
                 {this.props.children}

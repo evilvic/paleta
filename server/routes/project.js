@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const Project = require('../models/Project')
 const User = require('../models/User')
+const Comment = require('../models/Comment')
 
 router
     .get('/', async (req, res, next) => {
@@ -54,6 +55,12 @@ router
         const project = await Project.findById(id).populate('author')
         res.status(200).json( { project } )
 
+    })
+    .delete('/:id', async (req, res, next) => {
+        const { id } = req.params
+        await Project.findByIdAndDelete(id)
+        await Comment.deleteMany({project: id})
+        res.status(200).json( { msg: 'Project deleted' } )
     })
 
 module.exports = router

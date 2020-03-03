@@ -16,6 +16,9 @@ const PROJECTS_SERVICE = {
     },
     getOne: async id => {
         return await MY_SERVICE.get(`/${id}`)
+    },
+    delete: async id => {
+        return await MY_SERVICE.delete(`/${id}`)
     }
 }
 
