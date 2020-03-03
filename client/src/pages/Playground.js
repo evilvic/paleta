@@ -387,32 +387,32 @@ class Playground extends Component {
 
                         <button 
                             onClick={this.handleCodeButton}
-                            style={this.state.buttons.code ? {background: 'orange'} : {background: 'grey'}}
+                            style={this.state.buttons.code ? {background: 'rgb(164,230,255)'} : {background: 'rgb(86,86,100)'}}
                         ><i className="fas fa-code"></i></button>
 
                         <button 
                             onClick={this.handleFiguresButton}
-                            style={this.state.buttons.figures ? {background: 'orange'} : {background: 'grey'}}
+                            style={this.state.buttons.figures ? {background: 'rgb(164,230,255)'} : {background: 'rgb(86,86,100)'}}
                         ><i className="far fa-circle"></i></button>
 
                         <button 
                             onClick={this.handleMoveButton}
-                            style={this.state.buttons.move ? {background: 'orange'} : {background: 'grey'}}
+                            style={this.state.buttons.move ? {background: 'rgb(164,230,255)'} : {background: 'rgb(86,86,100)'}}
                         ><i className="fas fa-arrows-alt"></i></button>
 
                         <button 
                             onClick={this.handleTextButton}
-                            style={this.state.buttons.text ? {background: 'orange'} : {background: 'grey'}}
+                            style={this.state.buttons.text ? {background: 'rgb(164,230,255)'} : {background: 'rgb(86,86,100)'}}
                         ><i className="fas fa-font"></i></button>
 
                         <button 
                             onClick={this.handleColorButton}
-                            style={this.state.buttons.color ? {background: 'orange'} : {background: 'grey'}}
+                            style={this.state.buttons.color ? {background: 'rgb(164,230,255)'} : {background: 'rgb(86,86,100)'}}
                         ><i className="fas fa-eye-dropper"></i></button>
 
                         <button 
                             onClick={this.handleOtherButton}
-                            style={this.state.buttons.other ? {background: 'orange'} : {background: 'grey'}}
+                            style={this.state.buttons.other ? {background: 'rgb(164,230,255)'} : {background: 'rgb(86,86,100)'}}
                         ><i className="fas fa-ellipsis-h"></i></button>
 
                     </Menu>
@@ -437,7 +437,7 @@ class Playground extends Component {
                     
                     {this.state.buttons.figures &&
                         <StyledInfo>
-                            <h3>Figures</h3>
+                            <h3>FIGURES</h3>
                             <h4>square <i>size</i></h4>
                             <p>Draws a square of a given size.</p>
                             <h4>rectangle <i>width</i> <i>height</i></h4>
@@ -454,7 +454,7 @@ class Playground extends Component {
                         <StyledInfo>
                             <h3>MOVEMENT</h3>
                             <h4>move <i>x</i> <i>y</i></h4>
-                            <p>Moves to a new position whit a given coordinate.</p>
+                            <p>Moves to a new position of a given coordinates.</p>
                         </StyledInfo>
                     }
                     {this.state.buttons.text &&
@@ -463,7 +463,7 @@ class Playground extends Component {
                             <h4>text <i>message</i></h4>
                             <p>Prints a given message.</p>
                             <h4>font <i>fontFamily</i> <i>size</i></h4>
-                            <p>Prints a given message.</p>
+                            <p>Changes the font and the size of the message.</p>
                         </StyledInfo>
                     }
                     {this.state.buttons.color &&
@@ -471,15 +471,15 @@ class Playground extends Component {
                             <h3>COLOR</h3>
                             <h4>background <i>color</i></h4>
                             <p>Changes the color of the background.</p>
-                            <h4>color <i>color</i> <i>size</i></h4>
+                            <h4>color <i>color</i></h4>
                             <p>Changes the color of the figures.</p>
                         </StyledInfo>
                     }
                     {this.state.buttons.other &&
                         <StyledInfo>
-                            <h3>MISCELLNEOUS</h3>
+                            <h3>MISCELLANEOUS</h3>
                             <h4>canvas size</h4>
-                            <p>The canvas size is 500 x 500 pixels.</p>
+                            <p>The canvas size is 500x500 pixels.</p>
                             <h4>coordinates</h4>
                             <p>The coordinates start in the upper-left corner.</p>
                         </StyledInfo>

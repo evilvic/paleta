@@ -26,8 +26,8 @@ const NavBar = () => (
                             <NavLink 
                             to='/signup'
                             style={{
-                                background: 'rgb(251,192,114)',
-                                color:'rgb(70,70,85)'
+                                background: 'rgb(285,151,192)',
+                                color:'rgb(253,253,253)'
                             }}
                             >SIGN UP</NavLink>
                         </>

@@ -8,10 +8,10 @@ const Login = () => (
             <StyledForm>
                 <div></div>
                 <form  onSubmit={ context.handleLoginSubmit }>
-                    <h2>Login</h2>
+                    <h2>Log in</h2>
                     <label>Username</label>
                     <input
-                        placeholder='evilvic'
+                        placeholder='username'
                         name='username'
                         type='text'
                         value={ context.state.formLogin.username }
@@ -27,7 +27,7 @@ const Login = () => (
                         onChange={ context.handleLoginInput }
                         required
                     />
-                    <button> Login </button>
+                    <button>Log in</button>
                 </form>
             </StyledForm>
         )}

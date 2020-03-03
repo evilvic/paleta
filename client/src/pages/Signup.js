@@ -8,10 +8,10 @@ const Signup = () => (
             <StyledForm>
                 <div></div>
                 <form  onSubmit={ context.handleSignupSubmit }>
-                    <h2>Signup</h2>
+                    <h2>Sign up</h2>
                     <label>Username</label>
                     <input
-                        placeholder='evilvic'
+                        placeholder='username'
                         name='username'
                         type='text'
                         value={ context.state.formSignup.username }
@@ -20,7 +20,7 @@ const Signup = () => (
                     />
                     <label>Email</label>
                     <input
-                        placeholder='evilvic@paleta.com'
+                        placeholder='example@paleta.com'
                         name='email'
                         type='email'
                         value={ context.state.formSignup.email }
@@ -36,7 +36,7 @@ const Signup = () => (
                         onChange={ context.handleSignupInput }
                         required
                     />
-                    <button> Signup </button>
+                    <button>Sign up</button>
                 </form>
             </StyledForm>
         )}

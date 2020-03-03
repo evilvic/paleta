@@ -12,7 +12,8 @@ export const colors = {
   black:'rgb(70,70,85)',
   lightBlack: 'rgb(86,86,100)',
   darkPurple: 'rgb(87,70,123)',
-  white: 'rgb(253,253,253)'
+  white: 'rgb(253,253,253)',
+  green: '#C9F299'
 }
 
 export default createGlobalStyle`

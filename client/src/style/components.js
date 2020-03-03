@@ -7,7 +7,7 @@ export const Container = styled.main`
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background: rgb(70,70,85);
+    background: ${colors.black};
     article {
         display: flex;
         justify-content: space-between;
@@ -33,7 +33,7 @@ export const CodeEditor = styled.section`
             justify-content: flex-end;
             font-family: 'PT Mono', monospace;
             font-size: 20px;
-            color: rgb(255,133,82);
+            color: ${colors.lightPink};
             margin-right: 10px;
         }
         input {
@@ -104,8 +104,8 @@ export const Navbar = styled.nav`
 `
 
 export const LogoutButton = styled.button`
-    background: tomato;
-    color: rgb(253,253,253);
+    background: ${colors.lightPink};
+    color: ${colors.white};
     font-family: 'Fredoka One', sans-serif;
     font-size: 1.5rem;
     padding: 10px 15px;
@@ -122,7 +122,7 @@ export const StyledForm = styled.main`
     div {
         width: 150px;
         height: 500px;
-        background: rgb(87,70,123);
+        background: ${colors.lightPurple};
         border-radius: 5px 0 0 5px;
     }
     form {
@@ -146,6 +146,7 @@ export const StyledForm = styled.main`
             margin: 0 0 20px 0;
             padding: 15px 22px;
             font-size: 1.2rem;
+            text-align: center;
         }
         label {
             font-size: 1.2rem;
@@ -156,7 +157,7 @@ export const StyledForm = styled.main`
             width: 250px;
             height: 40px;
             margin: 20px 0 20px 0;
-            background: rgb(255,133,82);
+            background: ${colors.lightPink};
             border: none;
             outline: none;
             padding: 10px;
@@ -187,8 +188,8 @@ export const Title = styled.header`
     }
     button {
         width: 75px;
-        background: greenyellow;
-        color: rgb(87,70,123);
+        background: ${colors.lightPink};
+        color: ${colors.white};
         font-family: 'Fredoka One', sans-serif;
         font-size: 1.5rem;
         padding: 10px 15px;
@@ -251,7 +252,7 @@ export const Card = styled.article`
     }
     h4 {
         font-size: 1.5rem;
-        color: rgb(255,133,82);
+        color: ${colors.lightPink};
         align-self: flex-start;
     }
     span {
@@ -283,7 +284,7 @@ export const ProfileHeader = styled.header`
         padding-bottom: 30px;
             span {
                 font-size: 3rem;
-                color: rgb(255,133,82);
+                color: ${colors.lightPink};
             }
         }
         p {
@@ -327,6 +328,7 @@ export const DetailCanvas = styled.div`
         width: 480px;
         height: 480px;
         border-radius: 5px;
+        background: white;
     }
 `
 
@@ -347,7 +349,7 @@ p {
     color: rgb(253,253,253);
     font-size: 2rem;
     margin-left: 80px;
-    color: rgb(255,133,82);
+    color: ${colors.lightPink};
     span {
         color: rgb(253,253,253);
     }
@@ -371,7 +373,7 @@ export const StyledComment = styled.article`
         margin-bottom: 5px;
     }
     h6 {
-        color: rgb(255,133,82);
+        color: ${colors.lightPink};
     }
     p {
         color: rgb(253,253,253);
@@ -398,8 +400,8 @@ export const CommentInput = styled.form`
     }
     button {
         width: 75px;
-        background: greenyellow;
-        color: rgb(87,70,123);
+        background: ${colors.lightPurple};
+        color: ${colors.white};
         font-family: 'Fredoka One', sans-serif;
         font-size: 1.5rem;
         padding: 10px 15px;
