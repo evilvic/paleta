@@ -15,9 +15,11 @@ const Detail = () => {
 
     useEffect(() => {
         context.state.art = null
-        context.state.artComment = ''
-        
-    }, context.updateComments())
+        context.state.artComment = ''   
+    },
+    // eslint-disable-next-line
+    context.updateComments(),
+    [context])
 
     return (
         <MyContext.Consumer>
@@ -53,6 +55,7 @@ const Detail = () => {
                                     </CommentInput>
 
                                     }
+                                    { /*eslint-disable-next-line*/}
                                     {context.state.comments.map((comment, idx) => {
                                         if (context.state.art._id === comment.project._id) return (
                                             <StyledComment key={idx}>
@@ -69,7 +72,7 @@ const Detail = () => {
                         </DetailContainer>
                     </>
                 )
-                else return <>Loading...</>
+                else return <><DetailContainer><h6>Loading...</h6></DetailContainer></>
             }}
         </MyContext.Consumer>
     )

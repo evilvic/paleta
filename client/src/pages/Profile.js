@@ -1,7 +1,6 @@
 import React, { useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
 import { MyContext } from '../Context'
-import { Card, ProfileHeader, GallerySection } from '../style/components'
+import { Card, ProfileHeader, GallerySection, DetailContainer } from '../style/components'
 
 const Profile = ({ history }) => {
 
@@ -10,7 +9,7 @@ const Profile = ({ history }) => {
     useEffect(() => {
         if (!context.state.isLoggedIn) return history.push('/login')
         context.updateGallery()
-    }, [])
+    }, [context, history])
 
     return (
         
@@ -30,6 +29,7 @@ const Profile = ({ history }) => {
                             </div>
                         </ProfileHeader>
                         <GallerySection>
+                            { /*eslint-disable-next-line*/}
                             {context.state.gallery.map((project, idx) => {
                                 if (project.author.username === loggedUser.username) return (
                                     
@@ -45,7 +45,7 @@ const Profile = ({ history }) => {
                         </GallerySection>
                     </>
                 )
-                else return <>Loading...</>
+                else return <><DetailContainer><h6>Loading...</h6></DetailContainer></>
 
             }}
         </MyContext.Consumer>

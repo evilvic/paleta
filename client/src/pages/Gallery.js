@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { MyContext } from '../Context'
-import { GallerySection, Card } from '../style/components'
+import { GallerySection, Card, DetailContainer } from '../style/components'
 
 const Gallery = () => {
     return (
@@ -26,7 +26,7 @@ const Gallery = () => {
                         </GallerySection>
                     </>
                 )
-                else return <>Loading...</>
+                else return <><DetailContainer><h6>Loading...</h6></DetailContainer></>
             }}
         </MyContext.Consumer>
     )

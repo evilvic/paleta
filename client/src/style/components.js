@@ -302,6 +302,10 @@ export const DetailContainer = styled.main`
     align-items: center;
     flex-direction: column;
     background: rgb(70,70,85);
+    h6 {
+        color: ${colors.white};
+        font-size: 2rem;
+    }
     section {
         display: flex;
         justify-content: space-between;
@@ -374,6 +378,7 @@ export const StyledComment = styled.article`
     }
     h6 {
         color: ${colors.lightPink};
+        font-size: 1.2rem;
     }
     p {
         color: rgb(253,253,253);
