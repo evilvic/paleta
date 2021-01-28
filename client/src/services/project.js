@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000/projects'
+const baseURL = `${process.env.REACT_APP_SERVER_ENDPOINT}/projects`
 
 const MY_SERVICE = axios.create({
     baseURL,

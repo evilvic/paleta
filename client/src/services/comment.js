@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'http://localhost:3000/comments'
+const baseURL = `${process.env.REACT_APP_SERVER_ENDPOINT}/comments`
 
 const MY_SERVICE = axios.create({
     baseURL,
