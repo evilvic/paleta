@@ -12,7 +12,7 @@ const Home = () => {
                 <p><span>paleta</span> teaches kids the concepts of coding & logic through making beautiful pictures.</p>
                 <Link to='/signup'>START CREATING NOW</Link>
             </MainHeader>
-            <Wave 
+            <Wave
                 fill='rgb(145,139,215)'
                 paused={false}
                 options={{
@@ -27,7 +27,7 @@ const Home = () => {
                     display: 'block'
                 }}
             />
-            <Wave 
+            <Wave
                 fill='rgb(255,151,192)'
                 paused={false}
                 options={{
@@ -42,7 +42,7 @@ const Home = () => {
                     display: 'block'
                 }}
             />
-            <Wave 
+            <Wave
                 fill='rgb(249,240,151)'
                 paused={false}
                 options={{
@@ -57,7 +57,7 @@ const Home = () => {
                     display: 'block'
                 }}
             />
-            <Wave 
+            <Wave
                 fill='rgb(164,230,255)'
                 paused={false}
                 options={{

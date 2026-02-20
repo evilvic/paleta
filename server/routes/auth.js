@@ -22,8 +22,10 @@ router
     })
     .get('/logout', (req, res, next) => {
 
-        req.logout()
-        res.status(200).json({ msg: 'User logged out' })
+        req.logout(err => {
+            if (err) return next(err)
+            res.status(200).json({ msg: 'User logged out' })
+        })
 
     })
     .get('/user', (req, res, next) => {

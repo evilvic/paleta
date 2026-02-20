@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = `${process.env.REACT_APP_SERVER_ENDPOINT}/auth`
+const baseURL = `${import.meta.env.VITE_SERVER_ENDPOINT}/auth`
 
 const MY_SERVICE = axios.create({
     baseURL,
