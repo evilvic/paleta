@@ -1,17 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Container, CodeEditor, Canvas, Title, Menu, StyledInfo } from '../style/components'
-import AUTH_SERVICE from '../services/auth'
-import PROJECTS_SERVICE from '../services/project'
+import { MyContext } from '../Context'
 import Swal from 'sweetalert2'
 
 const Playground = () => {
 
     const navigate = useNavigate()
     const canvasRef = useRef(null)
+    const context = useContext(MyContext)
 
     const [title, setTitle] = useState('')
-    const [loggedUser, setLoggedUser] = useState(null)
 
     const initialCommands = {}
     for (let i = 0; i < 50; i++) {
@@ -241,22 +240,12 @@ const Playground = () => {
         const canvas = canvasRef.current
         const photoUrl = canvas.toDataURL("image/png")
 
-        const {
-            input0, input1, input2, input3, input4, input5, input6, input7, input8, input9,
-            input10, input11, input12, input13, input14, input15, input16, input17, input18, input19,
-            input20, input21, input22, input23, input24, input25, input26, input27, input28, input29,
-            input30, input31, input32, input33, input34, input35, input36, input37, input38, input39,
-            input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
-        } = commands
+        const inputs = Object.values(commands)
 
-        await PROJECTS_SERVICE.create({
+        await context.createProject({
             title,
             photoUrl,
-            input0, input1, input2, input3, input4, input5, input6, input7, input8, input9,
-            input10, input11, input12, input13, input14, input15, input16, input17, input18, input19,
-            input20, input21, input22, input23, input24, input25, input26, input27, input28, input29,
-            input30, input31, input32, input33, input34, input35, input36, input37, input38, input39,
-            input40, input41, input42, input43, input44, input45, input46, input47, input48, input49
+            inputs
         })
 
         Swal.fire({
@@ -270,15 +259,7 @@ const Playground = () => {
         navigate('/profile')
     }
 
-    useEffect(() => {
-        AUTH_SERVICE.getUser()
-            .then(({ data }) => {
-                setLoggedUser(data.user)
-            })
-            .catch(() => {
-                console.log('Something went wrong...')
-            })
-    }, [])
+    const loggedUser = context.state.loggedUser
 
     return (
         <Container>
@@ -324,7 +305,7 @@ const Playground = () => {
                 >
                     {Array.from(Array(50), (input, idx) => {
                         return (
-                            <div key={idx}>
+                            <div key={`input${idx}`}>
                                 <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
                                 <input
                                     name={`input${idx}`}

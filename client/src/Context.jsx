@@ -1,8 +1,9 @@
-import React, { useState, useEffect, createContext, useCallback } from 'react'
+import React, { useState, createContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import AUTH_SERVICE from './services/auth'
-import PROJECTS_SERVICE from './services/project'
-import COMMENTS_SERVICE from './services/comment'
+import { useQuery, useMutation } from 'convex/react'
+import { useConvexAuth } from 'convex/react'
+import { useAuthActions } from '@convex-dev/auth/react'
+import { api } from '../convex/_generated/api'
 import Swal from 'sweetalert2'
 
 export const MyContext = createContext()
@@ -10,6 +11,17 @@ export const MyContext = createContext()
 const MyProvider = ({ children }) => {
 
     const navigate = useNavigate()
+    const { isAuthenticated, isLoading } = useConvexAuth()
+    const { signIn, signOut } = useAuthActions()
+
+    const loggedUser = useQuery(api.users.currentUser)
+    const gallery = useQuery(api.projects.list)
+    const comments = useQuery(api.comments.list)
+
+    const createProject = useMutation(api.projects.create)
+    const removeProject = useMutation(api.projects.remove)
+    const createComment = useMutation(api.comments.create)
+    const updateProfile = useMutation(api.users.updateProfile)
 
     const [formSignup, setFormSignup] = useState({
         username: '',
@@ -18,35 +30,21 @@ const MyProvider = ({ children }) => {
     })
 
     const [formLogin, setFormLogin] = useState({
-        username: '',
+        email: '',
         password: ''
     })
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
-    const [loggedUser, setLoggedUser] = useState(null)
-    const [gallery, setGallery] = useState(null)
     const [art, setArt] = useState(null)
     const [artComment, setArtComment] = useState('')
-    const [comments, setComments] = useState(null)
 
     const deleteProject = async id => {
-        await PROJECTS_SERVICE.delete(id)
+        await removeProject({ id })
     }
 
-    const getArt = async id => {
-        const { data: { project } } = await PROJECTS_SERVICE.getOne(id)
-        setArt(project)
+    const getArt = id => {
+        const project = gallery?.find(p => p._id === id)
+        if (project) setArt(project)
     }
-
-    const updateGallery = useCallback(async () => {
-        const { data } = await PROJECTS_SERVICE.getAll()
-        setGallery(data.allProjects)
-    }, [])
-
-    const updateComments = useCallback(async () => {
-        const { data: { allComments } } = await COMMENTS_SERVICE.getAll()
-        setComments(allComments)
-    }, [])
 
     const handleCommentInput = e => {
         const { value } = e.target
@@ -55,9 +53,9 @@ const MyProvider = ({ children }) => {
 
     const handleCommentSubmit = async e => {
         e.preventDefault()
-        await COMMENTS_SERVICE.create({
+        await createComment({
             content: artComment,
-            project: art._id
+            projectId: art._id
         })
         setArtComment('')
     }
@@ -70,28 +68,23 @@ const MyProvider = ({ children }) => {
         }))
     }
 
-    const handleSignupSubmit = e => {
+    const handleSignupSubmit = async e => {
         e.preventDefault()
         const { username, email, password } = formSignup
-
-        AUTH_SERVICE.signup({ username, email, password })
-            .then(() => {
-                setFormSignup({
-                    username: '',
-                    email: '',
-                    password: ''
-                })
-                navigate('/login')
+        try {
+            await signIn('password', { email, password, flow: 'signUp' })
+            await updateProfile({ username })
+            setFormSignup({ username: '', email: '', password: '' })
+            navigate('/profile')
+        } catch {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Could not create account',
+                showConfirmButton: false,
+                timer: 1000
             })
-            .catch(() => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'The username has alredy been taken',
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-            })
+        }
     }
 
     const handleLoginInput = e => {
@@ -102,60 +95,36 @@ const MyProvider = ({ children }) => {
         }))
     }
 
-    const handleLoginSubmit = e => {
+    const handleLoginSubmit = async e => {
         e.preventDefault()
-        const { username, password } = formLogin
-        AUTH_SERVICE.login({ username, password })
-            .then(({ data }) => {
-                setFormLogin({
-                    username: '',
-                    password: ''
-                })
-                setLoggedUser(data.user)
-                setIsLoggedIn(true)
-                navigate('/profile')
+        const { email, password } = formLogin
+        try {
+            await signIn('password', { email, password, flow: 'signIn' })
+            setFormLogin({ email: '', password: '' })
+            navigate('/profile')
+        } catch {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Invalid credentials',
+                showConfirmButton: false,
+                timer: 1000
             })
-            .catch(() => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'error',
-                    title: 'Invalid credentials',
-                    showConfirmButton: false,
-                    timer: 1000
-                })
-            })
+        }
     }
 
     const handleLogout = async () => {
-        await AUTH_SERVICE.logout()
-        setFormSignup({
-            username: '',
-            email: '',
-            password: ''
-        })
-        setFormLogin({
-            username: '',
-            password: ''
-        })
-        setIsLoggedIn(false)
-        setLoggedUser(null)
+        await signOut()
+        setFormSignup({ username: '', email: '', password: '' })
+        setFormLogin({ email: '', password: '' })
         navigate('/')
     }
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await PROJECTS_SERVICE.getAll()
-            const { data: { allComments } } = await COMMENTS_SERVICE.getAll()
-            setGallery(data.allProjects)
-            setComments(allComments)
-        }
-        fetchData()
-    }, [])
 
     const state = {
         formSignup,
         formLogin,
-        isLoggedIn,
+        isLoggedIn: isAuthenticated,
+        isLoading,
         loggedUser,
         gallery,
         art,
@@ -172,12 +141,11 @@ const MyProvider = ({ children }) => {
                 handleLoginInput,
                 handleLoginSubmit,
                 handleLogout,
-                updateGallery,
                 getArt,
                 handleCommentInput,
                 handleCommentSubmit,
-                updateComments,
-                deleteProject
+                deleteProject,
+                createProject
             }}
         >
             {children}

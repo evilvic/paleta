@@ -8,62 +8,84 @@ Paleta is an educational web app that teaches kids programming through visual ar
 
 ## Architecture
 
-Monorepo with two independent apps:
+Fullstack app powered by **Convex** (backend-as-a-service with real-time reactive queries):
 
 - **`client/`** — React 19 SPA (Vite + Bun). JavaScript, no TypeScript.
-- **`server/`** — Express 4.21 + MongoDB REST API (Mongoose 8). Session-based auth via Passport 0.7.
+- **`client/convex/`** — Convex backend: schema, auth, queries, and mutations.
+- Auth via `@convex-dev/auth` with email+password (Password provider).
 
 ## Development Commands
 
-### Client (Vite, port 3000)
+### Start Convex backend (watches for changes)
 ```bash
-cd client && bun run dev
+cd client && npx convex dev
 ```
 
-### Server (with nodemon + debug logging)
+### Start Vite frontend (port 3000)
 ```bash
-cd server && bun run dev
+cd client && bun run dev
 ```
 
 ### Install dependencies
 ```bash
 cd client && bun install
-cd server && bun install
+```
+
+### First-time setup
+```bash
+cd client && npx convex dev --once --configure=new
+npx @convex-dev/auth  # generates AUTH_SECRET env var
 ```
 
 ## Environment Variables
 
-**`server/.env`**: `PORT`, `ENV`, `FRONTENDPOINT`, `SECRET`, `DB`, `CLOUDINARY_NAME`, `CLOUDINARY_KEY`, `CLOUDINARY_SECRET`
+**`client/.env`**: `VITE_CONVEX_URL` — set automatically by `npx convex dev`
 
-**`client/.env`**: `VITE_SERVER_ENDPOINT`
+**Convex dashboard env vars** (set via `npx convex env set`): `AUTH_SECRET`
 
 ## Key Files
 
 | File | Purpose |
 |---|---|
-| `client/src/Context.jsx` | Global state (React Context). Functional component with hooks. Auth state, gallery data, form handlers, all API dispatch lives here. |
+| `client/convex/schema.js` | Database schema: users (with auth fields + username/bio/photoUrl), projects (title, authorId, photoUrl, inputs[50]), comments (content, authorId, projectId). |
+| `client/convex/auth.js` | Convex Auth config with Password provider. Exports `auth`, `signIn`, `signOut`, `store`, `isAuthenticated`. |
+| `client/convex/http.js` | HTTP router for auth endpoints. |
+| `client/convex/users.js` | `currentUser` query, `updateProfile` mutation. |
+| `client/convex/projects.js` | `list` query (all + author populated), `getOne` query, `create` mutation, `remove` mutation (cascades to comments). |
+| `client/convex/comments.js` | `list` query (all + author + project populated), `create` mutation. |
+| `client/src/index.jsx` | App entry: `ConvexAuthProvider` > `BrowserRouter` > `MyProvider` > `Router`. |
+| `client/src/Context.jsx` | Global state (React Context). Uses `useQuery` for reactive gallery/comments/user, `useMutation` for writes, `useAuthActions` for signIn/signOut. |
 | `client/src/Router.jsx` | All client routes (React Router v7, `<Routes>` + `<Route element>`). |
-| `client/src/pages/Playground.jsx` | Core feature: canvas drawing editor with 50 code input fields and command parser (`draw()` function). Functional component with `useRef` for canvas. |
-| `client/src/services/{auth,project,comment}.js` | Axios service layer — all API calls. Uses `withCredentials: true` for session cookies. Env vars via `import.meta.env.VITE_SERVER_ENDPOINT`. |
+| `client/src/pages/Playground.jsx` | Core feature: canvas drawing editor with 50 code input fields and command parser (`draw()` function). Saves inputs as array. |
 | `client/src/style/components.js` | All styled-components (18 components). |
 | `client/src/style/index.js` | Global styles, color palette, font imports. |
 | `client/vite.config.js` | Vite configuration with React plugin. |
-| `server/app.js` | Express setup: CORS, session, passport, route mounting. Uses `express.json()` (no body-parser). |
-| `server/bin/www` | Server entry point. |
-| `server/models/{User,Project,Comment}.js` | Mongoose schemas. |
-| `server/routes/{auth,project,comment}.js` | REST endpoints. |
 
-## API Routes
+## Convex Functions (API)
 
-- `POST /auth/signup`, `POST /auth/login`, `GET /auth/logout`, `GET /auth/user`
-- `GET /projects/`, `POST /projects/new`, `GET /projects/:id`, `DELETE /projects/:id`
-- `GET /comments/`, `POST /comments/new`
+### Queries (reactive, real-time)
+- `api.users.currentUser` — authenticated user document
+- `api.projects.list` — all projects with populated author, desc by date
+- `api.projects.getOne({ id })` — single project with author
+- `api.comments.list` — all comments with author and project
+
+### Mutations
+- `api.users.updateProfile({ username?, bio?, photoUrl? })`
+- `api.projects.create({ title, photoUrl, inputs[] })`
+- `api.projects.remove({ id })` — deletes project + its comments
+- `api.comments.create({ content, projectId })`
+
+### Auth (via @convex-dev/auth)
+- `signIn('password', { email, password, flow: 'signUp' })`
+- `signIn('password', { email, password, flow: 'signIn' })`
+- `signOut()`
 
 ## Architectural Notes
 
 - **State management**: Single `MyProvider` functional component in `Context.jsx` wraps the entire app. All components consume via `useContext(MyContext)`.
-- **Project model quirk**: The `Project` schema stores canvas code as 50 individual string fields (`input0` through `input49`) rather than an array.
+- **Reactive queries**: Gallery and comments update in real-time via Convex subscriptions (`useQuery`). No manual refresh needed.
+- **Project inputs**: Stored as `string[50]` array (not 50 individual fields).
 - **Playground commands**: The `draw()` function in `Playground.jsx` parses commands like `circle`, `square`, `move`, `color`, `text`, `background`, `arc`, `ellipse`, `rectangle`.
 - **Styling**: Styled-components 6 with a custom color palette (purples, pinks, oranges). Fonts: Baloo, Comfortaa, Fredoka One, PT Mono.
 - **All functional components**: Every component uses hooks (useState, useEffect, useContext, useRef, useNavigate).
-- **Cloudinary and Nodemailer**: Configured in `server/config/` but not actively used in routes.
+- **Login uses email**: Auth is email+password based (not username-based).

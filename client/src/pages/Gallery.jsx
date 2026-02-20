@@ -14,11 +14,11 @@ const Gallery = () => {
     return (
         <GallerySection>
             {gallery.map((project, idx) => (
-                <Link onClick={() => context.getArt(project._id)} to='/detail' key={idx}>
+                <Link onClick={() => context.getArt(project._id)} to='/detail' key={project._id}>
                     <Card>
                         <img src={project.photoUrl} alt={project.title} />
                         <h3>{project.title}</h3>
-                        <h4><span>by </span>{project.author.username}</h4>
+                        <h4><span>by </span>{project.author?.username}</h4>
                     </Card>
                 </Link>
             ))}

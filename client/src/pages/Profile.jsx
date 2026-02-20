@@ -9,13 +9,12 @@ const Profile = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!context.state.isLoggedIn) return navigate('/login')
-        context.updateGallery()
-    }, [context.state.isLoggedIn, navigate, context.updateGallery])
+        if (!context.state.isLoading && !context.state.isLoggedIn) navigate('/login')
+    }, [context.state.isLoggedIn, context.state.isLoading, navigate])
 
     const { isLoggedIn, loggedUser, gallery } = context.state
 
-    if (!isLoggedIn) {
+    if (!isLoggedIn || !loggedUser) {
         return <DetailContainer><h6>Loading...</h6></DetailContainer>
     }
 
@@ -30,8 +29,8 @@ const Profile = () => {
             </ProfileHeader>
             <GallerySection>
                 {gallery && gallery.map((project, idx) => {
-                    if (project.author.username === loggedUser.username) return (
-                        <Card key={idx}>
+                    if (project.authorId === loggedUser._id) return (
+                        <Card key={project._id}>
                             <img src={project.photoUrl} alt={project.title} />
                             <div style={{ display: 'flex', justifyContent: 'space-between', width: '230px'}}>
                                 <div style={{display: 'flex', flexDirection: 'column'}}>

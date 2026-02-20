@@ -10,17 +10,19 @@ const Login = () => {
             <div></div>
             <form onSubmit={context.handleLoginSubmit}>
                 <h2>Log in</h2>
-                <label>Username</label>
+                <label htmlFor='login-email'>Email</label>
                 <input
-                    placeholder='username'
-                    name='username'
-                    type='text'
-                    value={context.state.formLogin.username}
+                    id='login-email'
+                    placeholder='example@paleta.com'
+                    name='email'
+                    type='email'
+                    value={context.state.formLogin.email}
                     onChange={context.handleLoginInput}
                     required
                 />
-                <label>Password</label>
+                <label htmlFor='login-password'>Password</label>
                 <input
+                    id='login-password'
                     placeholder='●●●●●●●'
                     name='password'
                     type='password'

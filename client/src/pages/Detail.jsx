@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { MyContext } from '../Context'
 import {
     DetailContainer,
@@ -12,11 +12,6 @@ import {
 const Detail = () => {
 
     const context = useContext(MyContext)
-
-    useEffect(() => {
-        context.updateComments()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     const { art, comments, loggedUser, artComment } = context.state
 
@@ -49,11 +44,11 @@ const Detail = () => {
                         </CommentInput>
                     }
                     {comments && comments.map((comment, idx) => {
-                        if (art._id === comment.project._id) return (
-                            <StyledComment key={idx}>
+                        if (art._id === comment.projectId) return (
+                            <StyledComment key={comment._id}>
                                 <div>
-                                    <img src={comment.author.photoUrl} alt={comment.author.username}/>
-                                    <h6>{comment.author.username}</h6>
+                                    <img src={comment.author?.photoUrl} alt={comment.author?.username}/>
+                                    <h6>{comment.author?.username}</h6>
                                 </div>
                                 <p>{comment.content}</p>
                             </StyledComment>
