@@ -6,6 +6,8 @@ However, the time comes when they face more complicated and intimidating program
 
 **paleta** is a web application that teaches kids the concepts of coding and logic through making beautiful pictures.
 
+This project was the final project with which I graduated from my bootcamp at IronHack, winning first place in my cohort.
+
 # How it works?
 
 In **paleta** we will have two main sections:
@@ -24,33 +26,32 @@ To install **paleta**, first you need to clone this git repository.
 git clone https://github.com/evilvic/paleta.git
 ```
 
-## Server
+## Backend (Convex)
 
-The server needs an .env file for configurations with the following variables.
-
-```
-PORT=
-ENV=
-FRONTENDPOINT=
-SECRET=
-DB=
-```
-
-Then:
-
-``` 
-cd server
-npm install
-npm run dev
-```
-
-## Client
+**paleta** uses [Convex](https://convex.dev) as its backend-as-a-service for database, authentication, and real-time reactive queries.
 
 ```
-cd client
-npm install
-npm start
+bun install
+npx convex dev
 ```
+
+On first-time setup, you'll also need to configure auth:
+```
+npx convex dev --once --configure=new
+npx @convex-dev/auth
+```
+
+## Frontend (Vite + React)
+
+```
+bun run dev
+```
+
+The app will be available at `http://localhost:3000`.
+
+# Legacy
+
+The original version of **paleta** (Express + MongoDB backend, Create React App frontend) is preserved in the [`legacy`](https://github.com/evilvic/paleta/tree/legacy) branch. The `main` branch contains a refactored version with updated dependencies and the backend migrated to Convex.
 
 ---
-**paleta** was created by Víctor Peña Romero with ❤︎ at Ironhack.
+**paleta** was created by Victor Pena Romero with ❤︎ at Ironhack in 2020.

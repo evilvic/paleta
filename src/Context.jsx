@@ -1,4 +1,4 @@
-import React, { useState, createContext } from 'react'
+import React, { useState, useEffect, useRef, createContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useQuery, useMutation } from 'convex/react'
 import { useConvexAuth } from 'convex/react'
@@ -36,6 +36,15 @@ const MyProvider = ({ children }) => {
 
     const [art, setArt] = useState(null)
     const [artComment, setArtComment] = useState('')
+    const pendingUsername = useRef(null)
+
+    useEffect(() => {
+        if (isAuthenticated && pendingUsername.current) {
+            const username = pendingUsername.current
+            pendingUsername.current = null
+            updateProfile({ username }).then(() => navigate('/profile'))
+        }
+    }, [isAuthenticated])
 
     const deleteProject = async id => {
         await removeProject({ id })
@@ -72,11 +81,11 @@ const MyProvider = ({ children }) => {
         e.preventDefault()
         const { username, email, password } = formSignup
         try {
+            pendingUsername.current = username
             await signIn('password', { email, password, flow: 'signUp' })
-            await updateProfile({ username })
             setFormSignup({ username: '', email: '', password: '' })
-            navigate('/profile')
         } catch {
+            pendingUsername.current = null
             Swal.fire({
                 position: 'center',
                 icon: 'error',
