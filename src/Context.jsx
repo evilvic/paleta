@@ -38,12 +38,18 @@ const MyProvider = ({ children }) => {
     const [art, setArt] = useState(null)
     const [artComment, setArtComment] = useState('')
     const pendingUsername = useRef(null)
+    const pendingRedirect = useRef(null)
 
     useEffect(() => {
         if (isAuthenticated && pendingUsername.current) {
             const username = pendingUsername.current
             pendingUsername.current = null
+            pendingRedirect.current = null
             updateProfile({ username }).then(() => navigate('/profile'))
+        } else if (isAuthenticated && pendingRedirect.current) {
+            const path = pendingRedirect.current
+            pendingRedirect.current = null
+            navigate(path)
         }
     }, [isAuthenticated])
 
@@ -120,9 +126,9 @@ const MyProvider = ({ children }) => {
         e.preventDefault()
         const { email, password } = formLogin
         try {
+            pendingRedirect.current = '/profile'
             await signIn('password', { email, password, flow: 'signIn' })
             setFormLogin({ email: '', password: '' })
-            navigate('/profile')
         } catch {
             Swal.fire({
                 position: 'center',
