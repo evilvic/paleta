@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, createContext } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useQuery, useMutation } from 'convex/react'
-import { useConvexAuth } from 'convex/react'
+import { useQuery, useMutation, useConvexAuth } from 'convex/react'
+import { useConvex } from 'convex/react'
 import { useAuthActions } from '@convex-dev/auth/react'
 import { api } from '../convex/_generated/api'
 import Swal from 'sweetalert2'
@@ -14,6 +14,7 @@ const MyProvider = ({ children }) => {
     const { isAuthenticated, isLoading } = useConvexAuth()
     const { signIn, signOut } = useAuthActions()
 
+    const convex = useConvex()
     const loggedUser = useQuery(api.users.currentUser)
     const gallery = useQuery(api.projects.list)
     const comments = useQuery(api.comments.list)
@@ -81,6 +82,17 @@ const MyProvider = ({ children }) => {
         e.preventDefault()
         const { username, email, password } = formSignup
         try {
+            const taken = await convex.query(api.users.isUsernameTaken, { username })
+            if (taken) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: 'Username already taken',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                return
+            }
             pendingUsername.current = username
             await signIn('password', { email, password, flow: 'signUp' })
             setFormSignup({ username: '', email: '', password: '' })
@@ -154,7 +166,8 @@ const MyProvider = ({ children }) => {
                 handleCommentInput,
                 handleCommentSubmit,
                 deleteProject,
-                createProject
+                createProject,
+                updateProfile
             }}
         >
             {children}

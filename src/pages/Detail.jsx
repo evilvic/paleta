@@ -6,7 +6,8 @@ import {
     DetailTitle,
     CommentInput,
     StyledComment,
-    CommentsContainer
+    CommentsContainer,
+    CodeViewer
 } from '../style/components'
 
 const Detail = () => {
@@ -29,6 +30,18 @@ const Detail = () => {
                 <DetailCanvas>
                     <img src={art.photoUrl} alt={art.title}/>
                 </DetailCanvas>
+                {art.inputs && art.inputs.some(Boolean) && (
+                    <CodeViewer>
+                        {art.inputs.map((line, idx) =>
+                            line ? (
+                                <div key={idx}>
+                                    <label>{idx < 9 ? `0${idx + 1}` : idx + 1}</label>
+                                    <span>{line}</span>
+                                </div>
+                            ) : null
+                        )}
+                    </CodeViewer>
+                )}
                 <CommentsContainer>
                     {loggedUser &&
                         <CommentInput onSubmit={context.handleCommentSubmit}>

@@ -2,6 +2,17 @@ import { query, mutation } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 import { v } from "convex/values";
 
+export const isUsernameTaken = query({
+  args: { username: v.string() },
+  handler: async (ctx, { username }) => {
+    const existing = await ctx.db
+      .query("users")
+      .withIndex("username", (q) => q.eq("username", username))
+      .first();
+    return existing !== null;
+  },
+});
+
 export const currentUser = query({
   args: {},
   handler: async (ctx) => {
@@ -20,6 +31,15 @@ export const updateProfile = mutation({
   handler: async (ctx, args) => {
     const userId = await getAuthUserId(ctx);
     if (userId === null) throw new Error("Not authenticated");
+    if (args.username) {
+      const existing = await ctx.db
+        .query("users")
+        .withIndex("username", (q) => q.eq("username", args.username))
+        .first();
+      if (existing && existing._id !== userId) {
+        throw new Error("Username already taken");
+      }
+    }
     await ctx.db.patch(userId, args);
   },
 });

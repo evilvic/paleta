@@ -48,6 +48,21 @@ const Playground = () => {
         }))
     }
 
+    const handlePaste = (e, idx) => {
+        const text = e.clipboardData.getData('text')
+        if (!text.includes(',')) return
+        e.preventDefault()
+        const parts = text.split(',').map(s => s.trim()).filter(Boolean)
+        setCommands(prev => {
+            const updated = { ...prev }
+            parts.forEach((part, i) => {
+                if (idx + i < 50) updated[`input${idx + i}`] = part
+            })
+            return updated
+        })
+        setTimeout(draw, 0)
+    }
+
     const handleTitleInput = e => {
         setTitle(e.target.value)
     }
@@ -312,6 +327,7 @@ const Playground = () => {
                                     value={commands[`input${idx}`]}
                                     onChange={handleInput}
                                     onKeyUp={draw}
+                                    onPaste={e => handlePaste(e, idx)}
                                 />
                             </div>
                         )

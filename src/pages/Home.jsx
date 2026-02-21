@@ -1,16 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { MainHeader } from '../style/components'
+import { MyContext } from '../Context'
 import Wave from 'react-wavify'
 
 const Home = () => {
+    const { state } = useContext(MyContext)
+
     return (
         <>
             <MainHeader>
                 <h1>LEARN TO CODE &</h1>
                 <h2>CREATE AMAZING ART!</h2>
                 <p><span>paleta</span> teaches kids the concepts of coding & logic through making beautiful pictures.</p>
-                <Link to='/signup'>START CREATING NOW</Link>
+                <Link to={state.isLoggedIn ? '/playground' : '/signup'}>START CREATING NOW</Link>
             </MainHeader>
             <Wave
                 fill='rgb(145,139,215)'

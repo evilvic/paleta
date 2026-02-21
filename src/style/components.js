@@ -262,33 +262,35 @@ export const Card = styled.article`
 
 export const ProfileHeader = styled.header`
     width: 100vw;
-    height: 300px;
+    padding: 40px 10vw;
     background: rgb(87,70,123);
-    padding: 0 5vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 40px;
     img {
-        width: 200px;
-        height: 200px;
+        width: 150px;
+        height: 150px;
         border-radius: 50%;
-        margin-right: 50px;
+        object-fit: cover;
+        flex-shrink: 0;
     }
-    div {
-        width: 300px;
+    & > div {
         display: flex;
         flex-direction: column;
+        max-width: 500px;
         h2 {
-        font-size: 3rem;
-        color: rgb(253,253,253);
-        padding-bottom: 30px;
+            font-size: 3rem;
+            color: rgb(253,253,253);
+            margin-bottom: 10px;
             span {
                 font-size: 3rem;
                 color: ${colors.lightPink};
             }
         }
         p {
-            font-size: 2rem;
+            font-size: 1.4rem;
+            line-height: 2rem;
             color: rgb(253,253,253);
         }
     }
@@ -296,26 +298,51 @@ export const ProfileHeader = styled.header`
 
 export const DetailContainer = styled.main`
     width: 100vw;
-    height: 90vh;
+    min-height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background: rgb(70,70,85);
+    padding: 30px 0;
     h6 {
         color: ${colors.white};
         font-size: 2rem;
     }
-    section {
+    & > section {
         display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        width: 80vw;
+        justify-content: center;
+        align-items: stretch;
+        gap: 15px;
     }
+`
+
+export const CodeViewer = styled.section`
+    width: 400px;
+    height: 500px;
+    overflow-y: auto;
+    background: rgb(87,70,123);
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
     div {
         display: flex;
-        flex-direction: column;
-        align-items: center;
+        margin-bottom: 3px;
+        label {
+            width: 25px;
+            display: flex;
+            justify-content: flex-end;
+            font-family: 'PT Mono', monospace;
+            font-size: 14px;
+            color: ${colors.lightPink};
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        span {
+            font-family: 'PT Mono', monospace;
+            font-size: 14px;
+            color: ${colors.white};
+        }
     }
 `
 
@@ -361,47 +388,50 @@ p {
 `
 
 export const StyledComment = styled.article`
-    width: 500px;
-    height: 100px;
+    width: 100%;
+    min-height: 80px;
     background: rgb(86,86,100);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 5px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
+    padding: 10px 15px;
+    gap: 10px;
+    flex-shrink: 0;
     img {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         margin-bottom: 5px;
     }
     h6 {
         color: ${colors.lightPink};
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
     p {
         color: rgb(253,253,253);
-        width: 380px;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
+        flex: 1;
     }
 `
 
 export const CommentInput = styled.form`
-    width: 500px;
-    height: 100px;
+    width: 100%;
+    min-height: 80px;
     background: white;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 10px;
     background: rgb(86,86,100);
-    padding: 10px 20px;
+    padding: 10px 15px;
+    flex-shrink: 0;
     textarea {
         border-radius: 5px;
-        font-size: 1.5rem;
-        padding: 10px;
+        font-size: 1.3rem;
+        padding: 8px;
+        flex: 1;
     }
     button {
         width: 75px;
@@ -417,11 +447,11 @@ export const CommentInput = styled.form`
 `
 
 export const CommentsContainer = styled.div`
-    overflow: scroll;
+    overflow-y: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 500px;
+    width: 450px;
     height: 500px;
 `
 
